@@ -3,7 +3,9 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-dependencies" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/core-health" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-jobs" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core-rest" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/integrations-authorization-client" charset="UTF-8" />
   </component>
 </project>
