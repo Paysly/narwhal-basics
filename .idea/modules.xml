@@ -6,6 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/core-health/core-health.iml" filepath="$PROJECT_DIR$/core-health/core-health.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-jobs/core-jobs.iml" filepath="$PROJECT_DIR$/core-jobs/core-jobs.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-rest/core-rest.iml" filepath="$PROJECT_DIR$/core-rest/core-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external-core/external-core.iml" filepath="$PROJECT_DIR$/external-core/external-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external-firebase/external-firebase.iml" filepath="$PROJECT_DIR$/external-firebase/external-firebase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external-sendgrid/external-sendgrid.iml" filepath="$PROJECT_DIR$/external-sendgrid/external-sendgrid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/external-twilio/external-twilio.iml" filepath="$PROJECT_DIR$/external-twilio/external-twilio.iml" />
       <module fileurl="file://$PROJECT_DIR$/integrations-authorization-client/integrations-authorization-client.iml" filepath="$PROJECT_DIR$/integrations-authorization-client/integrations-authorization-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/root-pom.iml" filepath="$PROJECT_DIR$/root-pom.iml" />
     </modules>

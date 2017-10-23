@@ -11,7 +11,12 @@
         <module name="core-rest" />
         <module name="core-rest (1)" />
         <module name="core-status" />
+        <module name="external-core" />
+        <module name="external-firebase" />
+        <module name="external-sendgrid" />
+        <module name="external-twilio" />
         <module name="integrations-authorization-client" />
+        <module name="integrations-authorization-client (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,7 +26,12 @@
       <module name="core-rest" target="1.7" />
       <module name="core-rest (1)" target="1.7" />
       <module name="core-status" target="1.7" />
+      <module name="external-core" target="1.7" />
+      <module name="external-firebase" target="1.7" />
+      <module name="external-sendgrid" target="1.7" />
+      <module name="external-twilio" target="1.7" />
       <module name="integrations-authorization-client" target="1.7" />
+      <module name="integrations-authorization-client (1)" target="1.7" />
       <module name="root-pom" target="1.8" />
     </bytecodeTargetLevel>
   </component>

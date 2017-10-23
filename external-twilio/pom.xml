@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.narwhal.basics</groupId>
+        <artifactId>core-dependencies</artifactId>
+        <version>1.0.4</version>
+        <relativePath>../core-dependencies/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>external-twilio</artifactId>
+    <packaging>jar</packaging>
+    <properties>
+        <fork>false</fork>
+    </properties>
+    <dependencies>
+        <!-- CORE -->
+        <dependency>
+            <groupId>com.narwhal.basics</groupId>
+            <artifactId>core-dependencies</artifactId>
+            <version>${application.basic.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.narwhal.basics</groupId>
+            <artifactId>core-rest</artifactId>
+            <version>${application.basic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.narwhal.basics</groupId>
+            <artifactId>core-rest</artifactId>
+            <version>${application.basic.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.narwhal.basics</groupId>
+            <artifactId>core-jobs</artifactId>
+            <version>${application.basic.version}</version>
+        </dependency>
+        <!-- EXTERNAL -->
+        <dependency>
+            <groupId>com.narwhal.basics</groupId>
+            <artifactId>external-core</artifactId>
+            <version>${application.basic.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -2,13 +2,24 @@ package com.narwhal.basics.core.rest.utils;
 
 public class MicroservicesContext {
 
+    // External Settings
+    private String applicationSettingsId;
+    // Authorization
     private String clientId;
     private String clientSecret;
-
+    // Endpoints
     private String authorizationEndpoint;
     private String notificationsEndpoint;
     private String mainAppEndpoint;
     private String adminEndpoint;
+
+    public String getApplicationSettingsId() {
+        return applicationSettingsId;
+    }
+
+    public void setApplicationSettingsId(String applicationSettingsId) {
+        this.applicationSettingsId = applicationSettingsId;
+    }
 
     public String getClientId() {
         return clientId;
