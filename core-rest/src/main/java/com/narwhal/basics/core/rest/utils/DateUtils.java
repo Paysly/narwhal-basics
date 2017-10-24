@@ -23,13 +23,6 @@ public class DateUtils {
         return calendar.getTime();
     }
 
-    public static Date increaseDays(Date date, int days) {
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, days);
-        return calendar.getTime();
-    }
-
     public static Date decreaseOneDay(Long time) {
         Date date = new Date();
         date.setTime(time);
@@ -83,5 +76,13 @@ public class DateUtils {
         cal.set(Calendar.WEEK_OF_YEAR, week);
         cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
         return cal.getTime();
+    }
+
+    public static Date getDayAMonthAgo() {
+        Date date = todayNoTime();
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, -1);
+        return calendar.getTime();
     }
 }

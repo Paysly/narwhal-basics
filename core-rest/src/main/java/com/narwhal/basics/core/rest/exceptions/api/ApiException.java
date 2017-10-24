@@ -5,7 +5,7 @@ package com.narwhal.basics.core.rest.exceptions.api;
  */
 public abstract class ApiException extends RuntimeException {
 
-    protected int code;
+    public int code;
 
     public ApiException(int code, String message) {
         super(message);

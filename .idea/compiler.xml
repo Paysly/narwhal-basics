@@ -6,8 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="core-exceptions" />
         <module name="core-health" />
         <module name="core-jobs" />
+        <module name="core-jobs (1)" />
         <module name="core-rest" />
         <module name="core-rest (1)" />
         <module name="core-status" />
@@ -22,8 +24,10 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core-dependencies" target="1.7" />
+      <module name="core-exceptions" target="1.7" />
       <module name="core-health" target="1.7" />
       <module name="core-jobs" target="1.7" />
+      <module name="core-jobs (1)" target="1.7" />
       <module name="core-rest" target="1.7" />
       <module name="core-rest (1)" target="1.7" />
       <module name="core-status" target="1.7" />

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core-dependencies/core-dependencies.iml" filepath="$PROJECT_DIR$/core-dependencies/core-dependencies.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-exceptions/core-exceptions.iml" filepath="$PROJECT_DIR$/core-exceptions/core-exceptions.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-health/core-health.iml" filepath="$PROJECT_DIR$/core-health/core-health.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-jobs/core-jobs.iml" filepath="$PROJECT_DIR$/core-jobs/core-jobs.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-rest/core-rest.iml" filepath="$PROJECT_DIR$/core-rest/core-rest.iml" />
