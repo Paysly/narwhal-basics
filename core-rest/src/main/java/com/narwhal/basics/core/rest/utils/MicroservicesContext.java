@@ -12,6 +12,7 @@ public class MicroservicesContext {
     private String notificationsEndpoint;
     private String mainAppEndpoint;
     private String adminEndpoint;
+    private String stagingAdminEndpoint;
 
     public String getApplicationSettingsId() {
         return applicationSettingsId;
@@ -67,5 +68,13 @@ public class MicroservicesContext {
 
     public void setAdminEndpoint(String adminEndpoint) {
         this.adminEndpoint = adminEndpoint;
+    }
+
+    public String getStagingAdminEndpoint() {
+        return stagingAdminEndpoint;
+    }
+
+    public void setStagingAdminEndpoint(String stagingAdminEndpoint) {
+        this.stagingAdminEndpoint = stagingAdminEndpoint;
     }
 }
