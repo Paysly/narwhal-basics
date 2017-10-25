@@ -23,6 +23,13 @@ public class DateUtils {
         return calendar.getTime();
     }
 
+    public static Date increaseDays(Date date, int days) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, days);
+        return calendar.getTime();
+    }
+
     public static Date decreaseOneDay(Long time) {
         Date date = new Date();
         date.setTime(time);
