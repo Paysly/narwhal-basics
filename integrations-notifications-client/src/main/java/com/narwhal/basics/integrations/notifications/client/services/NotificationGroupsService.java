@@ -37,6 +37,7 @@ public class NotificationGroupsService {
         //
         String key = String.format(MemcachedConstants.NOTIFICATION_GROUPS_KEYS, versionId);
         groups = notificationGroupsApi.updateGroups(clientId, versionId, groups);
+        memcachedService.put(key, groups);
         //
         return groups;
     }
