@@ -29,7 +29,8 @@ public class AuthorizationService {
     @Inject
     private ApplicationTokenDao applicationTokenDao;
 
-    public ApplicationToken getApplicationToken() {
+    public ApplicationToken getApplicationToken(String clientId) {
+        ApiPreconditions.checkNotNull(clientId, "clientId");
         Set<ApplicationScopeTypes> allScopes = Sets.newTreeSet(Arrays.asList(ApplicationScopeTypes.values()));
         String applicationTokenId = Joiner.on("|").join(allScopes);
         //
@@ -40,17 +41,18 @@ public class AuthorizationService {
                 memcachedService.put(applicationTokenId, applicationToken, Expiration.onDate(applicationToken.getExpirationDate()));
             } catch (EntityNotFoundException e) {
                 //Token not found in memcached neither in db. Probably a change of scopes or first run
-                applicationToken = renewApplicationToken();
+                applicationToken = renewApplicationToken(clientId);
             }
         }
         //
         return applicationToken;
     }
 
-    public ApplicationToken renewApplicationToken() {
+    public ApplicationToken renewApplicationToken(String clientId) {
+        ApiPreconditions.checkNotNull(clientId, "clientId");
         Set<ApplicationScopeTypes> allScopes = Sets.newTreeSet(Arrays.asList(ApplicationScopeTypes.values()));
         String applicationTokenId = Joiner.on("|").join(allScopes);
-        Token token = authorizationApi.authorize(allScopes);
+        Token token = authorizationApi.authorize(clientId, allScopes);
         ApplicationToken applicationToken = new ApplicationToken();
         applicationToken.init(applicationTokenId, token.getJwt(), token.getExpiration());
         // Save in db

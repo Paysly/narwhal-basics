@@ -1,5 +1,8 @@
 package com.narwhal.basics.core.rest.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static com.narwhal.basics.core.rest.utils.WebConstants.LOCALHOST;
 
 public abstract class MicroservicesContext {
@@ -7,8 +10,7 @@ public abstract class MicroservicesContext {
     // External Settings
     private String applicationSettingsId;
     // Authorization
-    private String clientId;
-    private String clientSecret;
+    private Map<String, String> clientIdSecret = new HashMap<>();
     // Endpoints
     private String authorizationEndpoint;
     private String notificationsEndpoint;
@@ -23,22 +25,6 @@ public abstract class MicroservicesContext {
 
     public void setApplicationSettingsId(String applicationSettingsId) {
         this.applicationSettingsId = applicationSettingsId;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
     }
 
     public String getAuthorizationEndpoint() {
@@ -85,7 +71,17 @@ public abstract class MicroservicesContext {
         return LOCALHOST;
     }
 
+    public Map<String, String> getClientIdSecret() {
+        return clientIdSecret;
+    }
+
+    public void setClientIdSecret(Map<String, String> clientIdSecret) {
+        this.clientIdSecret = clientIdSecret;
+    }
+
     public abstract String getStagingBaseServerUrl();
 
     public abstract String getProductionBaseServerUrl();
+
+
 }

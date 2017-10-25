@@ -42,15 +42,18 @@ public class AuthorizationApi {
         }
     }
 
-    public Token authorize(Set<ApplicationScopeTypes> scopes) {
+    public Token authorize(String clientId, Set<ApplicationScopeTypes> scopes) {
         ApiPreconditions.checkNotNull(scopes, "scopes");
+        //
+        String clientSecret = context.getClientIdSecret().get(clientId);
+        ApiPreconditions.checkNotNull(clientSecret, "sclientSecretcopes");
         //
         List<HTTPHeader> headerList = new ArrayList<>();
         headerList.add(new HTTPHeader("Content-type", MediaType.APPLICATION_JSON));
         //
         Map<String, String> params = new HashMap<>();
-        params.put("clientKey", context.getClientId());
-        params.put("clientSecret", context.getClientSecret());
+        params.put("clientKey", clientId);
+        params.put("clientSecret", clientSecret);
         //
         try {
             params.put("scopes", URLEncoder.encode(Joiner.on("|").join(scopes), "UTF-8"));

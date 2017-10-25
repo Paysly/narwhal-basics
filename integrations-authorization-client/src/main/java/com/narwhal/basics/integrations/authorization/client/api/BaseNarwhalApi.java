@@ -4,6 +4,7 @@ import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.inject.Inject;
 import com.narwhal.basics.core.rest.api.ApiFetchService;
+import com.narwhal.basics.core.rest.utils.ApiPreconditions;
 import com.narwhal.basics.integrations.authorization.client.model.ApplicationToken;
 import com.narwhal.basics.integrations.authorization.client.services.AuthorizationService;
 
@@ -21,8 +22,9 @@ public abstract class BaseNarwhalApi {
     @Inject
     protected AuthorizationService authorizationService;
 
-    protected List<HTTPHeader> prepareHeaders() {
-        ApplicationToken applicationToken = authorizationService.getApplicationToken();
+    protected List<HTTPHeader> prepareHeaders(String clientId) {
+        ApiPreconditions.checkNotNull(clientId, "clientId");
+        ApplicationToken applicationToken = authorizationService.getApplicationToken(clientId);
         //
         List<HTTPHeader> headerList = new ArrayList<>();
         headerList.add(new HTTPHeader("Content-type", MediaType.APPLICATION_JSON));
@@ -31,44 +33,44 @@ public abstract class BaseNarwhalApi {
         return headerList;
     }
 
-    protected <T> T securedGet(String url, Class<T> responseClazz) {
+    protected <T> T securedGet(String clientId, String url, Class<T> responseClazz) {
         Map<String, String> params = new HashMap<>();
-        return securedGet(url, params, responseClazz);
+        return securedGet(clientId, url, params, responseClazz);
     }
 
-    protected <T> T securedGet(String url, Map<String, String> params, Class<T> responseClazz) {
-        return apiFetchService.fetch(url, HTTPMethod.GET, prepareHeaders(), params, responseClazz);
+    protected <T> T securedGet(String clientId, String url, Map<String, String> params, Class<T> responseClazz) {
+        return apiFetchService.fetch(url, HTTPMethod.GET, prepareHeaders(clientId), params, responseClazz);
     }
 
-    protected <T> T securedPost(String url, Class<T> responseClazz) {
-        return securedPost(url, null, responseClazz);
+    protected <T> T securedPost(String clientId, String url, Class<T> responseClazz) {
+        return securedPost(clientId, url, null, responseClazz);
     }
 
-    protected <T> T securedPost(String url, Serializable params) {
-        return securedPost(url, params, null);
+    protected <T> T securedPost(String clientId, String url, Serializable params) {
+        return securedPost(clientId, url, params, null);
     }
 
-    protected <T> T securedPost(String url, Serializable params, Class<T> responseClazz) {
-        return apiFetchService.fetch(url, HTTPMethod.POST, prepareHeaders(), params, responseClazz);
+    protected <T> T securedPost(String clientId, String url, Serializable params, Class<T> responseClazz) {
+        return apiFetchService.fetch(url, HTTPMethod.POST, prepareHeaders(clientId), params, responseClazz);
     }
 
-    protected <T> T securedPut(String url, Class<T> responseClazz) {
-        return securedPost(url, null, responseClazz);
+    protected <T> T securedPut(String clientId, String url, Class<T> responseClazz) {
+        return securedPut(clientId, url, null, responseClazz);
     }
 
-    protected <T> T securedPut(String url, Serializable params) {
-        return securedPost(url, params, null);
+    protected <T> T securedPut(String clientId, String url, Serializable params) {
+        return securedPut(clientId, url, params, null);
     }
 
-    protected <T> T securedPut(String url, Serializable params, Class<T> responseClazz) {
-        return apiFetchService.fetch(url, HTTPMethod.PUT, prepareHeaders(), params, responseClazz);
+    protected <T> T securedPut(String clientId, String url, Serializable params, Class<T> responseClazz) {
+        return apiFetchService.fetch(url, HTTPMethod.PUT, prepareHeaders(clientId), params, responseClazz);
     }
 
-    protected <T> T securedDelete(String url) {
-        return securedDelete(url, null);
+    protected <T> T securedDelete(String clientId, String url) {
+        return securedDelete(clientId, url, null);
     }
 
-    protected <T> T securedDelete(String url, Map<String, String> params) {
-        return apiFetchService.fetch(url, HTTPMethod.DELETE, prepareHeaders(), params, null);
+    protected <T> T securedDelete(String clientId, String url, Map<String, String> params) {
+        return apiFetchService.fetch(url, HTTPMethod.DELETE, prepareHeaders(clientId), params, null);
     }
 }
