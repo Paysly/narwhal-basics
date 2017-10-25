@@ -11,6 +11,7 @@ import com.narwhal.basics.external.twilio.exception.InvalidTwilioErrorParsingExc
 import com.narwhal.basics.external.twilio.exception.SMSServiceNotAvailableException;
 import com.narwhal.basics.external.twilio.model.TwilioMessageContainerResponse;
 import com.narwhal.basics.external.twilio.types.TwilioErrorCode;
+import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -30,8 +31,8 @@ public class SendSmsService {
     private VelocityEngine velocityEngine;
     private TwilioMessageEndpoint twilioMessageApi;
 
-    public void sendSms(String namespaceId, SendPhoneMessage phoneMessage) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void sendSms(ApplicationEnvironmentTypes environmentTypes, SendPhoneMessage phoneMessage) {
+        ApiPreconditions.checkNotNull(environmentTypes, "environmentTypes");
         logger.log(Level.INFO, "Task to send sms in progress");
         //
         Context map = new VelocityContext();
@@ -45,7 +46,7 @@ public class SendSmsService {
         try {
             String description = renderTool.eval(map, phoneMessage.getSubject());
             //
-            TwilioMessageContainerResponse response = twilioMessageApi.sendSMS(namespaceId, phoneMessage.getTo(), description);
+            TwilioMessageContainerResponse response = twilioMessageApi.sendSMS(environmentTypes, phoneMessage.getTo(), description);
             //
             if (response.hasError()) {
                 //

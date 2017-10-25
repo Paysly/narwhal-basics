@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.narwhal.basics:external-core:1.0.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/external-core/pom.xml!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/external-core/external-core-1.0.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/external-core/external-core-1.0.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
