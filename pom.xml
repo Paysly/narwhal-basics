@@ -4,14 +4,14 @@
 
     <groupId>com.narwhal.basics</groupId>
     <artifactId>narwhal-basics-pom</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <packaging>pom</packaging>
 
     <name>narwhal-basics</name>
     <url>http://basics.narwhal.com</url>
 
     <properties>
-        <application.basic.version>1.1.0</application.basic.version>
+        <application.basic.version>1.1.3</application.basic.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
