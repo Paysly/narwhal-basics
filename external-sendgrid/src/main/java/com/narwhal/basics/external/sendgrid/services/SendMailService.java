@@ -15,6 +15,7 @@ import com.narwhal.basics.external.sendgrid.dto.endpoint.MailPersonalizations;
 import com.narwhal.basics.external.sendgrid.endpoint.SendgridMailEndpoint;
 import com.narwhal.basics.external.sendgrid.exceptions.EmailNotSendException;
 import com.narwhal.basics.external.sendgrid.types.MailContentTypes;
+import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -37,11 +38,11 @@ public class SendMailService {
     private SendgridMailEndpoint sendgridMailAPI;
     private VelocityEngine velocityEngine;
 
-    public void sendMail(String namespaceId, SendEmailMessage emailMessage) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void sendMail(ApplicationEnvironmentTypes environment, SendEmailMessage emailMessage) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         logger.log(Level.INFO, "Task to send email in progress");
         //
-        SendgridSettings sendgridSettings = settingsCachedService.getCachedApplicationSettings(namespaceId);
+        SendgridSettings sendgridSettings = settingsCachedService.getCachedApplicationSettings(environment);
         sendgridSettings.checkSendgridData();
         //
         MailDTO mailDTO = new MailDTO();
@@ -67,7 +68,7 @@ public class SendMailService {
             String bodyHtml = renderTool.eval(map, emailMessage.getHtmlTemplate());
             mailDTO.getContent().add(new MailContent(MailContentTypes.HTML, bodyHtml));
             //
-            sendgridMailAPI.sendMail(namespaceId, mailDTO);
+            sendgridMailAPI.sendMail(environment, mailDTO);
             //
         } catch (ApiException e) {
             throw e;

@@ -11,6 +11,7 @@ import com.narwhal.basics.external.core.model.ApplicationSettings;
 import com.narwhal.basics.external.core.model.SendgridSettings;
 import com.narwhal.basics.external.core.services.ApplicationSettingsCachedService;
 import com.narwhal.basics.external.sendgrid.dto.MailDTO;
+import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +32,10 @@ public class SendgridMailEndpoint {
     @Inject
     private ApplicationSettingsCachedService settingsCachedService;
 
-    private List<HTTPHeader> buildSecuredHeaders(String namespaceId) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    private List<HTTPHeader> buildSecuredHeaders(ApplicationEnvironmentTypes environment) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         //
-        SendgridSettings applicationSettings = settingsCachedService.getCachedApplicationSettings(namespaceId);
+        SendgridSettings applicationSettings = settingsCachedService.getCachedApplicationSettings(environment);
         applicationSettings.checkSendgridData();
         //
         String apiKey = applicationSettings.getSendgridApiKey();
@@ -46,17 +47,17 @@ public class SendgridMailEndpoint {
     }
 
 
-    public void sendMail(String namespaceId, MailDTO mailDTO) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void sendMail(ApplicationEnvironmentTypes environment, MailDTO mailDTO) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         if (SharedConstants.isRunningOnLocalServer()) {
             logger.log(Level.INFO, "Sending mail to log file");
             logger.log(Level.INFO, mailDTO.toString());
         } else {
             //
-            ApplicationSettings applicationSettings = settingsCachedService.getCachedApplicationSettings(namespaceId);
+            ApplicationSettings applicationSettings = settingsCachedService.getCachedApplicationSettings(environment);
             applicationSettings.checkSendgridData();
             apiFetchService.fetch(applicationSettings.getSendgridMailUrl(), HTTPMethod.POST,
-                    buildSecuredHeaders(namespaceId), mailDTO, null);
+                    buildSecuredHeaders(environment), mailDTO, null);
         }
     }
 }

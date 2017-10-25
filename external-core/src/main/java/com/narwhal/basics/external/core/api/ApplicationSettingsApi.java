@@ -34,7 +34,7 @@ public class ApplicationSettingsApi {
         ApiPreconditions.checkNotNull(authHeader, "authHeader");
         SuccessTokenDTO tokenDTO = authorizationService.validateToken(authHeader, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS);
         //
-        ApplicationSettings settings = cachedService.getCachedApplicationSettings(tokenDTO.getId());
+        ApplicationSettings settings = cachedService.getCachedApplicationSettings(tokenDTO.getEnvironment());
         SendgridDataDTO dataDTO = new SendgridDataDTO();
         //
         dataDTO.setEmailSender(settings.getEmailSender());
@@ -54,7 +54,7 @@ public class ApplicationSettingsApi {
         ApiPreconditions.checkNotNull(authHeader, "authHeader");
         SuccessTokenDTO tokenDTO = authorizationService.validateToken(authHeader, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS);
         //
-        cachedService.updateSendgridData(tokenDTO.getId(), sendgridDataDTO);
+        cachedService.updateSendgridData(tokenDTO.getEnvironment(), sendgridDataDTO);
         //
         return Response.ok().build();
     }
@@ -66,7 +66,7 @@ public class ApplicationSettingsApi {
     public Response getTwilioData(@HeaderParam("Auth") String authHeader) {
         ApiPreconditions.checkNotNull(authHeader, "authHeader");
         SuccessTokenDTO tokenDTO = authorizationService.validateToken(authHeader, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS);
-        ApplicationSettings settings = cachedService.getCachedApplicationSettings(tokenDTO.getId());
+        ApplicationSettings settings = cachedService.getCachedApplicationSettings(tokenDTO.getEnvironment());
         //
         TwilioDataDTO dataDTO = new TwilioDataDTO();
         //
@@ -86,7 +86,7 @@ public class ApplicationSettingsApi {
                                      TwilioDataDTO twilioDataDTO) {
         ApiPreconditions.checkNotNull(authHeader, "authHeader");
         SuccessTokenDTO tokenDTO = authorizationService.validateToken(authHeader, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS);
-        cachedService.updateTwilioData(tokenDTO.getId(), twilioDataDTO);
+        cachedService.updateTwilioData(tokenDTO.getEnvironment(), twilioDataDTO);
         //
         return Response.ok().build();
     }
@@ -98,7 +98,7 @@ public class ApplicationSettingsApi {
     public Response getFirebaseData(@HeaderParam("Auth") String authHeader) {
         ApiPreconditions.checkNotNull(authHeader, "authHeader");
         SuccessTokenDTO tokenDTO = authorizationService.validateToken(authHeader, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS);
-        ApplicationSettings settings = cachedService.getCachedApplicationSettings(tokenDTO.getId());
+        ApplicationSettings settings = cachedService.getCachedApplicationSettings(tokenDTO.getEnvironment());
         //
         FirebaseDataDTO dataDTO = new FirebaseDataDTO();
         //
@@ -118,7 +118,7 @@ public class ApplicationSettingsApi {
                                        FirebaseDataDTO firebaseDataDTO) {
         ApiPreconditions.checkNotNull(authHeader, "authHeader");
         SuccessTokenDTO tokenDTO = authorizationService.validateToken(authHeader, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS);
-        cachedService.updateFirebaseData(tokenDTO.getId(), firebaseDataDTO);
+        cachedService.updateFirebaseData(tokenDTO.getEnvironment(), firebaseDataDTO);
         //
         return Response.ok().build();
     }

@@ -10,6 +10,7 @@ import com.narwhal.basics.external.core.model.ApplicationSettings;
 import com.narwhal.basics.external.core.services.ApplicationSettingsCachedService;
 import com.narwhal.basics.external.firebase.dto.FirebaseCloudMessageResponse;
 import com.narwhal.basics.external.firebase.dto.FirebasePayload;
+import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,7 +52,7 @@ public class FirebaseCloudMessagingEndpointIntegrationTest {
         applicationSettings.setFirebaseIconUrl(FIREBASE_ICON_URL);
         applicationSettings.setFirebaseAppUrl(APP_URL);
         //
-        when(cachedService.getCachedApplicationSettings(eq("namespace1"))).thenReturn(applicationSettings);
+        when(cachedService.getCachedApplicationSettings(eq(ApplicationEnvironmentTypes.development))).thenReturn(applicationSettings);
         //
         //
         messagingApi = new FirebaseCloudMessagingEndpoint();
@@ -81,7 +82,7 @@ public class FirebaseCloudMessagingEndpointIntegrationTest {
         data.put("score", "5x1");
         payload.setData(data);
         //
-        FirebaseCloudMessageResponse response = messagingApi.sendMessage("namespace1", to, payload);
+        FirebaseCloudMessageResponse response = messagingApi.sendMessage(ApplicationEnvironmentTypes.development, to, payload);
         Assert.assertNotNull(response);
         assertEquals(new Long(1), response.getFailure());
     }

@@ -10,6 +10,7 @@ import com.narwhal.basics.external.core.dto.FirebaseDataDTO;
 import com.narwhal.basics.external.core.dto.SendgridDataDTO;
 import com.narwhal.basics.external.core.dto.TwilioDataDTO;
 import com.narwhal.basics.external.core.model.ApplicationSettings;
+import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 
 import java.util.Date;
 
@@ -23,8 +24,10 @@ public class ApplicationSettingsCachedService {
     @Inject
     private MicroservicesContext microservicesContext;
 
-    public ApplicationSettings getCachedApplicationSettings(String namespaceId) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public ApplicationSettings getCachedApplicationSettings(ApplicationEnvironmentTypes environment) {
+        ApiPreconditions.checkNotNull(environment, "environment");
+        String namespaceId = environment.toString();
+        //
         NamespaceManager.set(namespaceId);
         ApplicationSettings settings = (ApplicationSettings) memcachedService.getFilteringByNamespace(namespaceId, microservicesContext.getApplicationSettingsId());
         if (settings == null) {
@@ -35,19 +38,21 @@ public class ApplicationSettingsCachedService {
         return settings;
     }
 
-    public void updateCachedApplicationSettings(String namespaceId, ApplicationSettings applicationSettings) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void updateCachedApplicationSettings(ApplicationEnvironmentTypes environment, ApplicationSettings applicationSettings) {
+        ApiPreconditions.checkNotNull(environment, "environment");
+        String namespaceId = environment.toString();
+        //
         NamespaceManager.set(namespaceId);
         settingsService.updateApplicationSettings(applicationSettings);
         memcachedService.putFilteringByNamespace(namespaceId, microservicesContext.getApplicationSettingsId(), applicationSettings);
         NamespaceManager.set(null);
     }
 
-    public void updateSendgridData(String namespaceId, SendgridDataDTO sendgridDataDTO) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void updateSendgridData(ApplicationEnvironmentTypes environment, SendgridDataDTO sendgridDataDTO) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         ApiPreconditions.checkNotNull(sendgridDataDTO, "sendgridData");
         //
-        ApplicationSettings applicationSettings = getCachedApplicationSettings(namespaceId);
+        ApplicationSettings applicationSettings = getCachedApplicationSettings(environment);
         //
         applicationSettings.setEmailSender(sendgridDataDTO.getEmailSender());
         applicationSettings.setSendgridMailUrl(sendgridDataDTO.getMailUrl());
@@ -56,14 +61,14 @@ public class ApplicationSettingsCachedService {
         //
         applicationSettings.setUpdatedAt(new Date());
         //
-        updateCachedApplicationSettings(namespaceId, applicationSettings);
+        updateCachedApplicationSettings(environment, applicationSettings);
     }
 
-    public void updateTwilioData(String namespaceId, TwilioDataDTO twilioDataDTO) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void updateTwilioData(ApplicationEnvironmentTypes environment, TwilioDataDTO twilioDataDTO) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         ApiPreconditions.checkNotNull(twilioDataDTO, "twilioData");
         //
-        ApplicationSettings applicationSettings = getCachedApplicationSettings(namespaceId);
+        ApplicationSettings applicationSettings = getCachedApplicationSettings(environment);
         //
         applicationSettings.setTwilioFromNumber(twilioDataDTO.getFromNumber());
         applicationSettings.setTwilioSid(twilioDataDTO.getSid());
@@ -72,14 +77,14 @@ public class ApplicationSettingsCachedService {
         //
         applicationSettings.setUpdatedAt(new Date());
         //
-        updateCachedApplicationSettings(namespaceId, applicationSettings);
+        updateCachedApplicationSettings(environment, applicationSettings);
     }
 
-    public void updateFirebaseData(String namespaceId, FirebaseDataDTO firebaseDataDTO) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void updateFirebaseData(ApplicationEnvironmentTypes environment, FirebaseDataDTO firebaseDataDTO) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         ApiPreconditions.checkNotNull(firebaseDataDTO, "firebaseData");
         //
-        ApplicationSettings applicationSettings = getCachedApplicationSettings(namespaceId);
+        ApplicationSettings applicationSettings = getCachedApplicationSettings(environment);
         //
         applicationSettings.setFirebaseAppUrl(firebaseDataDTO.getAppUrl());
         applicationSettings.setFirebaseIconUrl(firebaseDataDTO.getIconUrl());
@@ -88,6 +93,6 @@ public class ApplicationSettingsCachedService {
         //
         applicationSettings.setUpdatedAt(new Date());
         //
-        updateCachedApplicationSettings(namespaceId, applicationSettings);
+        updateCachedApplicationSettings(environment, applicationSettings);
     }
 }

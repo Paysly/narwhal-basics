@@ -15,7 +15,7 @@ import javax.ws.rs.ext.Provider;
  */
 @Provider
 @Singleton
-public class ApiExceptionMapper implements ExceptionMapper<Exception> {
+public class StoredApiExceptionMapper implements ExceptionMapper<Exception> {
 
     @Inject
     private StoredExceptionDao storedExceptionDao;

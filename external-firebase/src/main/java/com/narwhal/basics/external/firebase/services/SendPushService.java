@@ -6,13 +6,14 @@ import com.narwhal.basics.core.rest.exceptions.api.ApiException;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
 import com.narwhal.basics.external.core.model.FirebaseSettings;
 import com.narwhal.basics.external.core.services.ApplicationSettingsCachedService;
+import com.narwhal.basics.external.core.utils.EnvironmentContext;
 import com.narwhal.basics.external.firebase.dto.FirebaseCloudMessageResponse;
 import com.narwhal.basics.external.firebase.dto.FirebasePayload;
 import com.narwhal.basics.external.firebase.dto.SendPushMessage;
 import com.narwhal.basics.external.firebase.endpoint.FirebaseCloudMessagingEndpoint;
 import com.narwhal.basics.external.firebase.exceptions.InvalidFirebaseTokenException;
 import com.narwhal.basics.external.firebase.exceptions.PushNotSendException;
-import com.narwhal.basics.external.core.utils.EnvironmentContext;
+import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -36,8 +37,8 @@ public class SendPushService {
     @Inject
     private ApplicationSettingsCachedService cachedService;
 
-    public void sendPush(String namespaceId, SendPushMessage pushMessage) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public void sendPush(ApplicationEnvironmentTypes environment, SendPushMessage pushMessage) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         logger.log(Level.INFO, "Task to send sms in progress");
         //
         RenderTool renderTool = new RenderTool();
@@ -45,7 +46,7 @@ public class SendPushService {
         renderTool.setCatchExceptions(false);
         //
         try {
-            FirebaseSettings firebaseSettings = cachedService.getCachedApplicationSettings(namespaceId);
+            FirebaseSettings firebaseSettings = cachedService.getCachedApplicationSettings(environment);
             firebaseSettings.checkFirebaseData();
             //
             Context map = new VelocityContext();
@@ -62,7 +63,7 @@ public class SendPushService {
             payload.setIcon(firebaseSettings.getFirebaseIconUrl());
             payload.setData(pushMessage.getModel());
             //
-            FirebaseCloudMessageResponse response = firebaseCloudMessagingApi.sendMessage(namespaceId,
+            FirebaseCloudMessageResponse response = firebaseCloudMessagingApi.sendMessage(environment,
                     pushMessage.getTo(), payload);
             //
             if (response.getSuccess() == 0) {

@@ -6,4 +6,5 @@ package com.narwhal.basics.core.rest.utils;
 public interface WebConstants {
 
     String APP_NAME = "Narwhal Basics";
+    String LOCALHOST = "http://localhost:8080";
 }

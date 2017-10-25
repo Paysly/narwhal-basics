@@ -7,6 +7,18 @@ import javax.servlet.http.HttpSession;
  */
 public abstract class ServerWebConstants {
 
+    /**
+     * Return the plain url from the microservice configured.
+     *
+     * @param microservicesContext
+     * @return
+     */
+    public static String getAppUrl(MicroservicesContext microservicesContext) {
+        return getServerValue(microservicesContext.getLocalBaseServerUrl(),
+                microservicesContext.getStagingBaseServerUrl(),
+                microservicesContext.getProductionBaseServerUrl());
+    }
+
     public static String getServerValue(String localValue, String stagingValue, String productionValue) {
         String value;
         switch (SharedConstants.currentServer()) {

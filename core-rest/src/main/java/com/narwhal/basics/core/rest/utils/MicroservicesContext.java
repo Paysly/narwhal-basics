@@ -1,6 +1,8 @@
 package com.narwhal.basics.core.rest.utils;
 
-public class MicroservicesContext {
+import static com.narwhal.basics.core.rest.utils.WebConstants.LOCALHOST;
+
+public abstract class MicroservicesContext {
 
     // External Settings
     private String applicationSettingsId;
@@ -13,6 +15,7 @@ public class MicroservicesContext {
     private String mainAppEndpoint;
     private String adminEndpoint;
     private String stagingAdminEndpoint;
+    //
 
     public String getApplicationSettingsId() {
         return applicationSettingsId;
@@ -77,4 +80,12 @@ public class MicroservicesContext {
     public void setStagingAdminEndpoint(String stagingAdminEndpoint) {
         this.stagingAdminEndpoint = stagingAdminEndpoint;
     }
+
+    public String getLocalBaseServerUrl() {
+        return LOCALHOST;
+    }
+
+    public abstract String getStagingBaseServerUrl();
+
+    public abstract String getProductionBaseServerUrl();
 }

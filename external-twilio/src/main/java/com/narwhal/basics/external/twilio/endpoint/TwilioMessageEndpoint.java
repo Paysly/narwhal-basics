@@ -13,6 +13,7 @@ import com.narwhal.basics.external.twilio.exception.InvalidTwilioErrorParsingExc
 import com.narwhal.basics.external.twilio.model.TwilioErrorResponse;
 import com.narwhal.basics.external.twilio.model.TwilioMessageContainerResponse;
 import com.narwhal.basics.external.twilio.model.TwilioMessageResponse;
+import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.ws.rs.core.MediaType;
@@ -33,12 +34,12 @@ public class TwilioMessageEndpoint {
     @Inject
     private ApplicationSettingsCachedService cachedService;
 
-    public List<HTTPHeader> prepareHeaders(String namespaceId) {
+    public List<HTTPHeader> prepareHeaders(ApplicationEnvironmentTypes environment) {
         List<HTTPHeader> headers = new ArrayList<>();
         headers.add(new HTTPHeader("Content-Type", MediaType.APPLICATION_FORM_URLENCODED));
         headers.add(new HTTPHeader("Accept", MediaType.APPLICATION_JSON));
         //
-        ApplicationSettings applicationSettings = cachedService.getCachedApplicationSettings(namespaceId);
+        ApplicationSettings applicationSettings = cachedService.getCachedApplicationSettings(environment);
         applicationSettings.checkTwilioData();
         //
         String auth = applicationSettings.getTwilioSid() + ":" + applicationSettings.getTwilioToken();
@@ -54,13 +55,13 @@ public class TwilioMessageEndpoint {
      * @param description
      * @return
      */
-    public TwilioMessageContainerResponse sendSMS(String namespaceId, String toNumber, String description) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public TwilioMessageContainerResponse sendSMS(ApplicationEnvironmentTypes environment, String toNumber, String description) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         //
-        ApplicationSettings applicationSettings = cachedService.getCachedApplicationSettings(namespaceId);
+        ApplicationSettings applicationSettings = cachedService.getCachedApplicationSettings(environment);
         applicationSettings.checkTwilioData();
         //
-        return sendSMS(namespaceId, applicationSettings.getTwilioFromNumber(), toNumber, description);
+        return sendSMS(environment, applicationSettings.getTwilioFromNumber(), toNumber, description);
     }
 
     /**
@@ -71,13 +72,13 @@ public class TwilioMessageEndpoint {
      * @param description
      * @return
      */
-    public TwilioMessageContainerResponse sendSMS(String namespaceId, String fromNumber, String toNumber, String description) {
-        ApiPreconditions.checkNotNull(namespaceId, "namespaceId");
+    public TwilioMessageContainerResponse sendSMS(ApplicationEnvironmentTypes environment, String fromNumber, String toNumber, String description) {
+        ApiPreconditions.checkNotNull(environment, "environment");
         ApiPreconditions.checkNotNull(fromNumber, "fromNumber");
         ApiPreconditions.checkNotNull(toNumber, "toNumber");
         ApiPreconditions.checkNotNull(description, "description");
         //
-        ApplicationSettings applicationSettings = cachedService.getCachedApplicationSettings(namespaceId);
+        ApplicationSettings applicationSettings = cachedService.getCachedApplicationSettings(environment);
         applicationSettings.checkTwilioData();
         //
         //
@@ -93,7 +94,7 @@ public class TwilioMessageEndpoint {
         //
         TwilioMessageContainerResponse response = new TwilioMessageContainerResponse();
         try {
-            List<HTTPHeader> headers = prepareHeaders(namespaceId);
+            List<HTTPHeader> headers = prepareHeaders(environment);
             TwilioMessageResponse messageResponse = apiFetchService.fetch(url, HTTPMethod.POST, headers, params, TwilioMessageResponse.class);
             response.setMessageResponse(messageResponse);
         } catch (HttpClientException e) {
