@@ -27,13 +27,13 @@ public class NotificationItemsEndpoint extends BaseNarwhalApi {
         ITEMS_URL = microservicesContext.getNotificationsEndpoint() + "/notification/%s/group/%s/items";
     }
 
-    public ArrayList<NotificationItemDTO> getItems(String versionId, String groupKey) {
+    public ArrayList<NotificationItemDTO> getItems(String clientId, String versionId, String groupKey) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         //
         try {
             String url = String.format(ITEMS_URL, versionId, groupKey);
-            return securedGet(url, ArrayList.class);
+            return securedGet(clientId, url, ArrayList.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -41,13 +41,13 @@ public class NotificationItemsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public List<NotificationItemDTO> updateItems(String versionId, String groupKey, List<NotificationItemDTO> items) {
+    public List<NotificationItemDTO> updateItems(String clientId, String versionId, String groupKey, List<NotificationItemDTO> items) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(items, "items");
         try {
             String url = String.format(ITEMS_URL, versionId, groupKey);
-            return Arrays.asList(securedPut(url, new ArrayList<>(items), NotificationItemDTO[].class));
+            return Arrays.asList(securedPut(clientId, url, new ArrayList<>(items), NotificationItemDTO[].class));
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {

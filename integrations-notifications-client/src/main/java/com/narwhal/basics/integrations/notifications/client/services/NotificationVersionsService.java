@@ -21,21 +21,21 @@ public class NotificationVersionsService {
     @Inject
     private MemcachedService memcachedService;
 
-    public List<NotificationVersionDTO> getVersions() {
+    public List<NotificationVersionDTO> getVersions(String clientId) {
         //
         NotificationVersionsDTO versions = (NotificationVersionsDTO) memcachedService.get(MemcachedConstants.NOTIFICATION_VERSION_KEYS);
         //
         if (versions == null) {
-            versions = new NotificationVersionsDTO(notificationVersionsApi.getVersions());
+            versions = new NotificationVersionsDTO(notificationVersionsApi.getVersions(clientId));
             memcachedService.put(MemcachedConstants.NOTIFICATION_VERSION_KEYS, versions);
         }
         return versions.getVersions();
     }
 
-    public NotificationVersionDTO createVersion(NotificationVersionDTO version) {
+    public NotificationVersionDTO createVersion(String clientId, NotificationVersionDTO version) {
         ApiPreconditions.checkNotNull(version, "version");
         //
-        version = notificationVersionsApi.createVersion(version);
+        version = notificationVersionsApi.createVersion(clientId, version);
         memcachedService.delete(MemcachedConstants.NOTIFICATION_VERSION_KEYS);
         //
         if (StringUtils.isNotEmpty(version.getVersionIdToCopy())) {
@@ -48,19 +48,19 @@ public class NotificationVersionsService {
         return version;
     }
 
-    public NotificationVersionDTO updateVersion(NotificationVersionDTO version) {
+    public NotificationVersionDTO updateVersion(String clientId, NotificationVersionDTO version) {
         ApiPreconditions.checkNotNull(version, "version");
         //
-        version = notificationVersionsApi.updateVersion(version);
+        version = notificationVersionsApi.updateVersion(clientId, version);
         memcachedService.delete(MemcachedConstants.NOTIFICATION_VERSION_KEYS);
         //
         return version;
     }
 
-    public void deleteVersion(String versionId) {
+    public void deleteVersion(String clientId, String versionId) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         //
-        notificationVersionsApi.deleteVersion(versionId);
+        notificationVersionsApi.deleteVersion(clientId, versionId);
         //
         // Delete all from cache
         //

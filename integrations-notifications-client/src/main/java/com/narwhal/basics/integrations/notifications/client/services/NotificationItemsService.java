@@ -19,7 +19,7 @@ public class NotificationItemsService {
     @Inject
     private MemcachedService memcachedService;
 
-    public ArrayList<NotificationItemDTO> getItems(String versionId, String groupKey) {
+    public ArrayList<NotificationItemDTO> getItems(String clientId, String versionId, String groupKey) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         //
@@ -27,19 +27,19 @@ public class NotificationItemsService {
         ArrayList<NotificationItemDTO> groups = (ArrayList<NotificationItemDTO>) memcachedService.get(key);
         //
         if (groups == null) {
-            groups = notificationItemsApi.getItems(versionId, groupKey);
+            groups = notificationItemsApi.getItems(clientId, versionId, groupKey);
             memcachedService.put(key, groups);
         }
         return groups;
     }
 
 
-    public List<NotificationItemDTO> updateItems(String versionId, String groupKey, List<NotificationItemDTO> items) {
+    public List<NotificationItemDTO> updateItems(String clientId, String versionId, String groupKey, List<NotificationItemDTO> items) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(items, "items");
         //
-        items = notificationItemsApi.updateItems(versionId, groupKey, items);
+        items = notificationItemsApi.updateItems(clientId, versionId, groupKey, items);
         //
         String key = String.format(MemcachedConstants.NOTIFICATION_GROUPS_KEYS, versionId);
         memcachedService.delete(key);

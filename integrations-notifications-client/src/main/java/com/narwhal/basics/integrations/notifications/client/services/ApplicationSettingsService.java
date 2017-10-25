@@ -18,59 +18,59 @@ public class ApplicationSettingsService {
     @Inject
     private MemcachedService memcachedService;
 
-    public SendgridSettingsDTO getSendgridSettings() {
+    public SendgridSettingsDTO getSendgridSettings(String clientId) {
         SendgridSettingsDTO settings = (SendgridSettingsDTO) memcachedService.get(MemcachedConstants.SENDGRID_KEY);
         if (settings == null) {
-            settings = applicationSettingsApi.getSendgridSettings();
+            settings = applicationSettingsApi.getSendgridSettings(clientId);
             memcachedService.put(MemcachedConstants.SENDGRID_KEY, settings);
         }
         //
         return settings;
     }
 
-    public void updateSendgridSettings(SendgridSettingsDTO settings) {
+    public void updateSendgridSettings(String clientId, SendgridSettingsDTO settings) {
         ApiPreconditions.checkNotNull(settings, "settings");
         //
         memcachedService.delete(MemcachedConstants.SENDGRID_KEY);
-        applicationSettingsApi.setSendgridSettings(settings);
+        applicationSettingsApi.setSendgridSettings(clientId, settings);
         memcachedService.put(MemcachedConstants.SENDGRID_KEY, settings);
     }
 
-    public TwilioSettingsDTO getTwilioSettings() {
+    public TwilioSettingsDTO getTwilioSettings(String clientId) {
         //
         TwilioSettingsDTO settings = (TwilioSettingsDTO) memcachedService.get(MemcachedConstants.TWILIO_KEY);
         if (settings == null) {
-            settings = applicationSettingsApi.getTwilioSettings();
+            settings = applicationSettingsApi.getTwilioSettings(clientId);
             memcachedService.put(MemcachedConstants.TWILIO_KEY, settings);
         }
         //
         return settings;
     }
 
-    public void updateTwilioSettings(TwilioSettingsDTO settings) {
+    public void updateTwilioSettings(String clientId, TwilioSettingsDTO settings) {
         ApiPreconditions.checkNotNull(settings, "settings");
         //
         memcachedService.delete(MemcachedConstants.TWILIO_KEY);
-        applicationSettingsApi.setTwilioSettings(settings);
+        applicationSettingsApi.setTwilioSettings(clientId, settings);
         memcachedService.put(MemcachedConstants.TWILIO_KEY, settings);
     }
 
-    public FirebaseSettingsDTO getFirebaseSettings() {
+    public FirebaseSettingsDTO getFirebaseSettings(String clientId) {
         //
         FirebaseSettingsDTO settings = (FirebaseSettingsDTO) memcachedService.get(MemcachedConstants.FIREBASE_KEY);
         if (settings == null) {
-            settings = applicationSettingsApi.getFirebaseSettings();
+            settings = applicationSettingsApi.getFirebaseSettings(clientId);
             memcachedService.put(MemcachedConstants.FIREBASE_KEY, settings);
         }
         //
         return settings;
     }
 
-    public void updateFirebaseSettings(FirebaseSettingsDTO settings) {
+    public void updateFirebaseSettings(String clientId, FirebaseSettingsDTO settings) {
         ApiPreconditions.checkNotNull(settings, "settings");
         //
         memcachedService.delete(MemcachedConstants.FIREBASE_KEY);
-        applicationSettingsApi.setFirebaseSettings(settings);
+        applicationSettingsApi.setFirebaseSettings(clientId, settings);
         memcachedService.put(MemcachedConstants.FIREBASE_KEY, settings);
     }
 }

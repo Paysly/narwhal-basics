@@ -17,26 +17,26 @@ public class NotificationGroupsService {
     @Inject
     private MemcachedService memcachedService;
 
-    public ArrayList<NotificationGroupDTO> getGroups(String versionId) {
+    public ArrayList<NotificationGroupDTO> getGroups(String clientId, String versionId) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         //
         String key = String.format(MemcachedConstants.NOTIFICATION_GROUPS_KEYS, versionId);
         ArrayList<NotificationGroupDTO> groups = (ArrayList<NotificationGroupDTO>) memcachedService.get(key);
         //
         if (groups == null) {
-            groups = notificationGroupsApi.getGroups(versionId);
+            groups = notificationGroupsApi.getGroups(clientId, versionId);
             memcachedService.put(key, groups);
         }
         return groups;
     }
 
 
-    public ArrayList<NotificationGroupDTO> updateGroups(String versionId, ArrayList<NotificationGroupDTO> groups) {
+    public ArrayList<NotificationGroupDTO> updateGroups(String clientId, String versionId, ArrayList<NotificationGroupDTO> groups) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groups, "groups");
         //
         String key = String.format(MemcachedConstants.NOTIFICATION_GROUPS_KEYS, versionId);
-        groups = notificationGroupsApi.updateGroups(versionId, groups);
+        groups = notificationGroupsApi.updateGroups(clientId, versionId, groups);
         //
         return groups;
     }

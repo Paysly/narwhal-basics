@@ -33,34 +33,34 @@ public class NotificationTemplatesService {
         return key;
     }
 
-    public ArrayList<NotificationTemplateDTO> getTemplates(String versionId, String groupKey, String notificationKey) {
+    public ArrayList<NotificationTemplateDTO> getTemplates(String clientId, String versionId, String groupKey, String notificationKey) {
         String keys = getMemcachedKey(versionId, groupKey, notificationKey);
         ArrayList<NotificationTemplateDTO> templates = (ArrayList) memcachedService.get(keys);
         //
         if (templates == null) {
-            templates = notificationTemplatesApi.getTemplates(versionId, groupKey, notificationKey);
+            templates = notificationTemplatesApi.getTemplates(clientId, versionId, groupKey, notificationKey);
             memcachedService.put(keys, templates);
         }
         return templates;
     }
 
-    public NotificationTemplateDTO getTemplate(String versionId, String groupKey, String notificationKey, String templateName, NotificationMechanismType mechanismType) {
+    public NotificationTemplateDTO getTemplate(String clientId, String versionId, String groupKey, String notificationKey, String templateName, NotificationMechanismType mechanismType) {
         String key = getMemcachedKey(versionId, groupKey, notificationKey, templateName, mechanismType);
         NotificationTemplateDTO template = (NotificationTemplateDTO) memcachedService.get(key);
         //
         if (template == null) {
-            template = notificationTemplatesApi.getTemplate(versionId, groupKey, notificationKey, mechanismType, templateName);
+            template = notificationTemplatesApi.getTemplate(clientId, versionId, groupKey, notificationKey, mechanismType, templateName);
             memcachedService.put(key, template);
         }
         return template;
     }
 
 
-    public NotificationTemplateDTO createTemplate(String versionId, String groupKey, String notificationKey, NotificationTemplateDTO template) {
+    public NotificationTemplateDTO createTemplate(String clientId, String versionId, String groupKey, String notificationKey, NotificationTemplateDTO template) {
         String keys = getMemcachedKey(versionId, groupKey, notificationKey);
         String key = getMemcachedKey(versionId, groupKey, notificationKey, template.getTemplateName(), template.getMechanismType());
         //
-        template = notificationTemplatesApi.createTemplate(versionId, groupKey, notificationKey, template);
+        template = notificationTemplatesApi.createTemplate(clientId, versionId, groupKey, notificationKey, template);
         //
         ArrayList<NotificationTemplateDTO> templates = (ArrayList) memcachedService.get(keys);
         //
@@ -75,11 +75,11 @@ public class NotificationTemplatesService {
         return template;
     }
 
-    public NotificationTemplateDTO updateTemplate(String versionId, String groupKey, String notificationKey, NotificationTemplateDTO template) {
+    public NotificationTemplateDTO updateTemplate(String clientId, String versionId, String groupKey, String notificationKey, NotificationTemplateDTO template) {
         String keys = getMemcachedKey(versionId, groupKey, notificationKey);
         String key = getMemcachedKey(versionId, groupKey, notificationKey, template.getTemplateName(), template.getMechanismType());
         //
-        template = notificationTemplatesApi.updateTemplate(versionId, groupKey, notificationKey, template);
+        template = notificationTemplatesApi.updateTemplate(clientId, versionId, groupKey, notificationKey, template);
         //
         memcachedService.delete(keys);
         //Add new one to unique cache
@@ -88,11 +88,11 @@ public class NotificationTemplatesService {
         return template;
     }
 
-    public void deleteTemplate(String versionId, String groupKey, String notificationKey, String templateName, NotificationMechanismType templateMechanism) {
+    public void deleteTemplate(String clientId, String versionId, String groupKey, String notificationKey, String templateName, NotificationMechanismType templateMechanism) {
         String keys = getMemcachedKey(versionId, groupKey, notificationKey);
         String key = getMemcachedKey(versionId, groupKey, notificationKey, templateName, templateMechanism);
         //
-        notificationTemplatesApi.deleteTemplate(versionId, groupKey, notificationKey, templateMechanism, templateName);
+        notificationTemplatesApi.deleteTemplate(clientId, versionId, groupKey, notificationKey, templateMechanism, templateName);
         //
         //Remove from unique cache
         memcachedService.delete(keys);

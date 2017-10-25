@@ -28,14 +28,14 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         TEMPLATE_URL = TEMPLATES_URL + "%s/%s";
     }
 
-    public ArrayList<NotificationTemplateDTO> getTemplates(String versionId, String groupKey, String notificationKey) {
+    public ArrayList<NotificationTemplateDTO> getTemplates(String clientId, String versionId, String groupKey, String notificationKey) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(notificationKey, "notificationKey");
         //
         try {
             String url = String.format(TEMPLATES_URL, versionId, groupKey, notificationKey);
-            return securedGet(url, ArrayList.class);
+            return securedGet(clientId, url, ArrayList.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationTemplateDTO getTemplate(String versionId, String groupKey, String notificationKey, NotificationMechanismType mechanismType, String name) {
+    public NotificationTemplateDTO getTemplate(String clientId, String versionId, String groupKey, String notificationKey, NotificationMechanismType mechanismType, String name) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(notificationKey, "notificationKey");
@@ -52,7 +52,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         //
         try {
             String url = String.format(TEMPLATE_URL, versionId, groupKey, notificationKey, mechanismType, name);
-            return securedGet(url, NotificationTemplateDTO.class);
+            return securedGet(clientId, url, NotificationTemplateDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -60,7 +60,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationTemplateDTO createTemplate(String versionId, String groupKey, String notificationKey, NotificationTemplateDTO templateDTO) {
+    public NotificationTemplateDTO createTemplate(String clientId, String versionId, String groupKey, String notificationKey, NotificationTemplateDTO templateDTO) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(notificationKey, "notificationKey");
@@ -69,7 +69,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         ApiPreconditions.checkNotNull(templateDTO.getTemplateName(), "templateDTO.templateName");
         try {
             String url = String.format(TEMPLATE_URL, versionId, groupKey, notificationKey, templateDTO.getMechanismType(), templateDTO.getTemplateName());
-            return securedPost(url, templateDTO, NotificationTemplateDTO.class);
+            return securedPost(clientId, url, templateDTO, NotificationTemplateDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationTemplateDTO updateTemplate(String versionId, String groupKey, String notificationKey, NotificationTemplateDTO templateDTO) {
+    public NotificationTemplateDTO updateTemplate(String clientId, String versionId, String groupKey, String notificationKey, NotificationTemplateDTO templateDTO) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(notificationKey, "notificationKey");
@@ -86,7 +86,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         ApiPreconditions.checkNotNull(templateDTO.getTemplateName(), "templateDTO.templateName");
         try {
             String url = String.format(TEMPLATE_URL, versionId, groupKey, notificationKey, templateDTO.getMechanismType(), templateDTO.getTemplateName());
-            return securedPut(url, templateDTO, NotificationTemplateDTO.class);
+            return securedPut(clientId, url, templateDTO, NotificationTemplateDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public void deleteTemplate(String versionId, String groupKey, String notificationKey, NotificationMechanismType mechanismName, String templateName) {
+    public void deleteTemplate(String clientId, String versionId, String groupKey, String notificationKey, NotificationMechanismType mechanismName, String templateName) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(notificationKey, "notificationKey");
@@ -103,7 +103,7 @@ public class NotificationTemplatesEndpoint extends BaseNarwhalApi {
         //
         try {
             String url = String.format(TEMPLATE_URL, versionId, groupKey, notificationKey, mechanismName, templateName);
-            securedDelete(url);
+            securedDelete(clientId, url);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {

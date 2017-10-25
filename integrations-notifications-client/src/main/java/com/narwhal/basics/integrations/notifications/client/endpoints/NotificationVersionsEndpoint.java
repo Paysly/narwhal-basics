@@ -25,9 +25,9 @@ public class NotificationVersionsEndpoint extends BaseNarwhalApi {
         VERSIONS_URL = microservicesContext.getNotificationsEndpoint() + "/notification-version/";
     }
 
-    public List<NotificationVersionDTO> getVersions() {
+    public List<NotificationVersionDTO> getVersions(String clientId) {
         try {
-            return securedGet(VERSIONS_URL, List.class);
+            return securedGet(clientId,VERSIONS_URL, List.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -35,10 +35,10 @@ public class NotificationVersionsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationVersionDTO createVersion(NotificationVersionDTO version) {
+    public NotificationVersionDTO createVersion(String clientId, NotificationVersionDTO version) {
         ApiPreconditions.checkNotNull(version, "version");
         try {
-            return securedPost(VERSIONS_URL, version, NotificationVersionDTO.class);
+            return securedPost(clientId,VERSIONS_URL, version, NotificationVersionDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -46,11 +46,11 @@ public class NotificationVersionsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationVersionDTO updateVersion(NotificationVersionDTO version) {
+    public NotificationVersionDTO updateVersion(String clientId, NotificationVersionDTO version) {
         ApiPreconditions.checkNotNull(version, "version");
         ApiPreconditions.checkNotNull(version.getId(), "version.id");
         try {
-            return securedPut(VERSIONS_URL + version.getId(), version, NotificationVersionDTO.class);
+            return securedPut(clientId, VERSIONS_URL + version.getId(), version, NotificationVersionDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -58,9 +58,9 @@ public class NotificationVersionsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public void deleteVersion(String versionId) {
+    public void deleteVersion(String clientId, String versionId) {
         try {
-            securedDelete(VERSIONS_URL + versionId);
+            securedDelete(clientId, VERSIONS_URL + versionId);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {

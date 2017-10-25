@@ -28,52 +28,52 @@ public class ApplicationSettingsEndpoint extends BaseNarwhalApi {
         SETTINGS_FIREBASE_URL = microservicesContext.getNotificationsEndpoint() + "/application/settings/firebase";
     }
 
-    public SendgridSettingsDTO getSendgridSettings() {
+    public SendgridSettingsDTO getSendgridSettings(String clientId) {
         try {
-            return securedGet(SETTINGS_SENDGRID_URL, SendgridSettingsDTO.class);
+            return securedGet(clientId, SETTINGS_SENDGRID_URL, SendgridSettingsDTO.class);
         } catch (Exception e) {
             throw new ApplicationSettingsUnavailable("Failed to fetch sendgrid settings", e);
         }
     }
 
-    public void setSendgridSettings(SendgridSettingsDTO sendgridSettings) {
+    public void setSendgridSettings(String clientId, SendgridSettingsDTO sendgridSettings) {
         ApiPreconditions.checkNotNull(sendgridSettings, "sendgridSettings");
         try {
-            securedPost(SETTINGS_SENDGRID_URL, sendgridSettings, null);
+            securedPost(clientId, SETTINGS_SENDGRID_URL, sendgridSettings, null);
         } catch (Exception e) {
             throw new ApplicationSettingsUnavailable("Failed to update sendgrid settings", e);
         }
     }
 
-    public TwilioSettingsDTO getTwilioSettings() {
+    public TwilioSettingsDTO getTwilioSettings(String clientId) {
         try {
-            return securedGet(SETTINGS_TWILIO_URL, TwilioSettingsDTO.class);
+            return securedGet(clientId, SETTINGS_TWILIO_URL, TwilioSettingsDTO.class);
         } catch (Exception e) {
             throw new ApplicationSettingsUnavailable("Failed to fetch twilio settings", e);
         }
     }
 
-    public void setTwilioSettings(TwilioSettingsDTO twilioSettings) {
+    public void setTwilioSettings(String clientId, TwilioSettingsDTO twilioSettings) {
         ApiPreconditions.checkNotNull(twilioSettings, "twilioSettings");
         try {
-            securedPost(SETTINGS_TWILIO_URL, twilioSettings, null);
+            securedPost(clientId, SETTINGS_TWILIO_URL, twilioSettings, null);
         } catch (Exception e) {
             throw new ApplicationSettingsUnavailable("Failed to update twilio settings", e);
         }
     }
 
-    public FirebaseSettingsDTO getFirebaseSettings() {
+    public FirebaseSettingsDTO getFirebaseSettings(String clientId) {
         try {
-            return securedGet(SETTINGS_FIREBASE_URL, FirebaseSettingsDTO.class);
+            return securedGet(clientId, SETTINGS_FIREBASE_URL, FirebaseSettingsDTO.class);
         } catch (Exception e) {
             throw new ApplicationSettingsUnavailable("Failed to fetch firebase settings", e);
         }
     }
 
-    public void setFirebaseSettings(FirebaseSettingsDTO firebaseSettings) {
+    public void setFirebaseSettings(String clientId, FirebaseSettingsDTO firebaseSettings) {
         ApiPreconditions.checkNotNull(firebaseSettings, "firebaseSettings");
         try {
-            securedPost(SETTINGS_FIREBASE_URL, firebaseSettings, null);
+            securedPost(clientId, SETTINGS_FIREBASE_URL, firebaseSettings, null);
         } catch (Exception e) {
             throw new ApplicationSettingsUnavailable("Failed to update firebase settings", e);
         }

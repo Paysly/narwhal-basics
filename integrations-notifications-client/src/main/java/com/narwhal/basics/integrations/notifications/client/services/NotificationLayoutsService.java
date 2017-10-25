@@ -30,34 +30,34 @@ public class NotificationLayoutsService {
         return key;
     }
 
-    public ArrayList<NotificationLayoutDTO> getLayouts(String versionId) {
+    public ArrayList<NotificationLayoutDTO> getLayouts(String clientId, String versionId) {
         String keys = getMemcachedKey(versionId);
         ArrayList<NotificationLayoutDTO> layouts = (ArrayList) memcachedService.get(keys);
         //
         if (layouts == null) {
-            layouts = notificationLayoutsApi.getLayouts(versionId);
+            layouts = notificationLayoutsApi.getLayouts(clientId, versionId);
             memcachedService.put(keys, layouts);
         }
         return layouts;
     }
 
-    public NotificationLayoutDTO getLayout(String versionId, String layoutId) {
+    public NotificationLayoutDTO getLayout(String clientId, String versionId, String layoutId) {
         String key = getMemcachedKey(versionId, layoutId);
         NotificationLayoutDTO layouts = (NotificationLayoutDTO) memcachedService.get(key);
         //
         if (layouts == null) {
-            layouts = notificationLayoutsApi.getLayout(versionId, layoutId);
+            layouts = notificationLayoutsApi.getLayout(clientId, versionId, layoutId);
             memcachedService.put(key, layouts);
         }
         return layouts;
     }
 
 
-    public NotificationLayoutDTO createLayout(String versionId, NotificationLayoutDTO layout) {
+    public NotificationLayoutDTO createLayout(String clientId, String versionId, NotificationLayoutDTO layout) {
         String keys = getMemcachedKey(versionId);
         String key = getMemcachedKey(versionId, layout.getId());
         //
-        layout = notificationLayoutsApi.createLayout(versionId, layout);
+        layout = notificationLayoutsApi.createLayout(clientId, versionId, layout);
         //
         ArrayList<NotificationLayoutDTO> layouts = (ArrayList) memcachedService.get(keys);
         //
@@ -72,11 +72,11 @@ public class NotificationLayoutsService {
         return layout;
     }
 
-    public NotificationLayoutDTO updateLayout(String versionId, NotificationLayoutDTO layout) {
+    public NotificationLayoutDTO updateLayout(String clientId, String versionId, NotificationLayoutDTO layout) {
         String keys = getMemcachedKey(versionId);
         String key = getMemcachedKey(versionId, layout.getId());
         //
-        layout = notificationLayoutsApi.updateLayout(versionId, layout);
+        layout = notificationLayoutsApi.updateLayout(clientId, versionId, layout);
         //
         memcachedService.delete(keys);
         //Add new one to unique cache
@@ -85,11 +85,11 @@ public class NotificationLayoutsService {
         return layout;
     }
 
-    public void deleteLayout(String versionId, String layoutId) {
+    public void deleteLayout(String clientId, String versionId, String layoutId) {
         String keys = getMemcachedKey(versionId);
         String key = getMemcachedKey(versionId, layoutId);
         //
-        notificationLayoutsApi.deleteLayout(versionId, layoutId);
+        notificationLayoutsApi.deleteLayout(clientId, versionId, layoutId);
         //
         //Remove from unique cache
         memcachedService.delete(keys);

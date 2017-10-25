@@ -25,12 +25,12 @@ public class NotificationGroupsEndpoint extends BaseNarwhalApi {
         GROUPS_URL = microservicesContext.getNotificationsEndpoint() + "/notification/%s/group/";
     }
 
-    public ArrayList<NotificationGroupDTO> getGroups(String versionId) {
+    public ArrayList<NotificationGroupDTO> getGroups(String clientId, String versionId) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         //
         try {
             String url = String.format(GROUPS_URL, versionId);
-            return securedGet(url, ArrayList.class);
+            return securedGet(clientId, url, ArrayList.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -38,12 +38,12 @@ public class NotificationGroupsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public ArrayList<NotificationGroupDTO> updateGroups(String versionId, ArrayList<NotificationGroupDTO> groups) {
+    public ArrayList<NotificationGroupDTO> updateGroups(String clientId, String versionId, ArrayList<NotificationGroupDTO> groups) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groups, "groups");
         try {
             String url = String.format(GROUPS_URL, versionId);
-            return securedPut(url, groups, ArrayList.class);
+            return securedPut(clientId, url, groups, ArrayList.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {

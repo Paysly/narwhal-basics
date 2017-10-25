@@ -28,11 +28,11 @@ public class NotificationLayoutsEndpoint extends BaseNarwhalApi {
         LAYOUT_URL = LAYOUTS_URL + "%s";
     }
 
-    public ArrayList<NotificationLayoutDTO> getLayouts(String versionId) {
-        return getLayouts(versionId, null);
+    public ArrayList<NotificationLayoutDTO> getLayouts(String clientId, String versionId) {
+        return getLayouts(clientId, versionId, null);
     }
 
-    public ArrayList<NotificationLayoutDTO> getLayouts(String versionId, NotificationLayoutType layoutType) {
+    public ArrayList<NotificationLayoutDTO> getLayouts(String clientId, String versionId, NotificationLayoutType layoutType) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         //
         try {
@@ -42,7 +42,7 @@ public class NotificationLayoutsEndpoint extends BaseNarwhalApi {
                 url += "?layoutType=" + layoutType;
             }
             //
-            return securedGet(url, ArrayList.class);
+            return securedGet(clientId, url, ArrayList.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -50,13 +50,13 @@ public class NotificationLayoutsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationLayoutDTO getLayout(String versionId, String layoutId) {
+    public NotificationLayoutDTO getLayout(String clientId, String versionId, String layoutId) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(layoutId, "layoutId");
         //
         try {
             String url = String.format(LAYOUT_URL, versionId, layoutId);
-            return securedGet(url, NotificationLayoutDTO.class);
+            return securedGet(clientId, url, NotificationLayoutDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -64,12 +64,12 @@ public class NotificationLayoutsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationLayoutDTO createLayout(String versionId, NotificationLayoutDTO layoutDTO) {
+    public NotificationLayoutDTO createLayout(String clientId, String versionId, NotificationLayoutDTO layoutDTO) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(layoutDTO, "layoutDTO");
         try {
             String url = String.format(LAYOUTS_URL, versionId);
-            return securedPost(url, layoutDTO, NotificationLayoutDTO.class);
+            return securedPost(clientId, url, layoutDTO, NotificationLayoutDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -77,13 +77,13 @@ public class NotificationLayoutsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public NotificationLayoutDTO updateLayout(String versionId, NotificationLayoutDTO layoutDTO) {
+    public NotificationLayoutDTO updateLayout(String clientId, String versionId, NotificationLayoutDTO layoutDTO) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(layoutDTO, "layoutDTO");
         ApiPreconditions.checkNotNull(layoutDTO.getId(), "layoutDTO.id");
         try {
             String url = String.format(LAYOUT_URL, versionId, layoutDTO.getId());
-            return securedPut(url, layoutDTO, NotificationLayoutDTO.class);
+            return securedPut(clientId, url, layoutDTO, NotificationLayoutDTO.class);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
@@ -91,12 +91,12 @@ public class NotificationLayoutsEndpoint extends BaseNarwhalApi {
         }
     }
 
-    public void deleteLayout(String versionId, String layoutId) {
+    public void deleteLayout(String clientId, String versionId, String layoutId) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(layoutId, "layoutId");
         try {
             String url = String.format(LAYOUT_URL, versionId, layoutId);
-            securedDelete(url);
+            securedDelete(clientId, url);
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
