@@ -33,6 +33,5 @@ public class EnvironmentVariablesService {
         //
         memcachedService.delete(MemcachedConstants.ENVIRONMENT_VARIABLES_KEY);
         environmentVariablesApi.setEnvironmentVariables(clientId, variable);
-        memcachedService.put(MemcachedConstants.ENVIRONMENT_VARIABLES_KEY, variable);
     }
 }
