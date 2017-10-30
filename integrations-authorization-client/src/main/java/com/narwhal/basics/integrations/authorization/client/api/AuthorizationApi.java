@@ -46,7 +46,7 @@ public class AuthorizationApi {
         ApiPreconditions.checkNotNull(scopes, "scopes");
         //
         String clientSecret = context.getClientIdSecret().get(clientId);
-        ApiPreconditions.checkNotNull(clientSecret, "sclientSecretcopes");
+        ApiPreconditions.checkNotNull(clientSecret, "clientSecretScopes");
         //
         List<HTTPHeader> headerList = new ArrayList<>();
         headerList.add(new HTTPHeader("Content-type", MediaType.APPLICATION_JSON));
