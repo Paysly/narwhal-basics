@@ -61,7 +61,7 @@ public class SendMailService {
         //
         ArrayList<EnvironmentVariable> variables = environmentVariablesCachedService.getCachedEnvironmentVariables(environment);
         for (EnvironmentVariable variable : variables) {
-            map.put("env." + variable.getId(), variable.getValue());
+            map.put("env_" + variable.getId(), variable.getValue());
         }
         //
         RenderTool renderTool = new RenderTool();
