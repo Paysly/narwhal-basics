@@ -3,6 +3,7 @@ package com.narwhal.basics.external.core.api;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
+import com.narwhal.basics.external.core.dto.EnvironmentVariableDTO;
 import com.narwhal.basics.external.core.model.EnvironmentVariable;
 import com.narwhal.basics.external.core.services.EnvironmentVariablesCachedService;
 import com.narwhal.basics.integrations.authorization.client.dto.SuccessTokenDTO;
@@ -42,7 +43,7 @@ public class EnvironmentVariablesApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateEnvironmentVariables(@HeaderParam("Auth") String authHeader,
-                                               ArrayList<EnvironmentVariable> variables) {
+                                               ArrayList<EnvironmentVariableDTO> variables) {
         ApiPreconditions.checkNotNull(authHeader, "authHeader");
         SuccessTokenDTO tokenDTO = authorizationService.validateToken(authHeader, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS);
         //
