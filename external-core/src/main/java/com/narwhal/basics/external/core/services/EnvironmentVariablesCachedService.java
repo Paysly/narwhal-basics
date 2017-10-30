@@ -14,6 +14,7 @@ import java.util.ArrayList;
 @Singleton
 public class EnvironmentVariablesCachedService {
 
+    public static final String ENVIRONMENT_VARIABLES = "ENVIRONMENT_VARIABLES";
     @Inject
     private EnvironmentVariableEditService editService;
     @Inject
@@ -26,10 +27,10 @@ public class EnvironmentVariablesCachedService {
         String namespaceId = environment.toString();
         //
         NamespaceManager.set(namespaceId);
-        ArrayList<EnvironmentVariable> variables = (ArrayList<EnvironmentVariable>) memcachedService.getFilteringByNamespace(namespaceId, microservicesContext.getApplicationSettingsId());
+        ArrayList<EnvironmentVariable> variables = (ArrayList<EnvironmentVariable>) memcachedService.getFilteringByNamespace(namespaceId, ENVIRONMENT_VARIABLES);
         if (variables == null) {
             variables = new ArrayList<>(editService.getUpdatables(null));
-            memcachedService.putFilteringByNamespace(namespaceId, microservicesContext.getApplicationSettingsId(), variables);
+            memcachedService.putFilteringByNamespace(namespaceId, ENVIRONMENT_VARIABLES, variables);
         }
         NamespaceManager.set(null);
         return variables;
@@ -41,7 +42,7 @@ public class EnvironmentVariablesCachedService {
         //
         NamespaceManager.set(namespaceId);
         variables = new ArrayList<>(editService.editModels(null, variables));
-        memcachedService.putFilteringByNamespace(namespaceId, microservicesContext.getApplicationSettingsId(), variables);
+        memcachedService.putFilteringByNamespace(namespaceId, ENVIRONMENT_VARIABLES, variables);
         NamespaceManager.set(null);
     }
 }
