@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AppEngineBasics.iml" filepath="$PROJECT_DIR$/AppEngineBasics.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-dependencies/core-dependencies.iml" filepath="$PROJECT_DIR$/core-dependencies/core-dependencies.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-exceptions/core-exceptions.iml" filepath="$PROJECT_DIR$/core-exceptions/core-exceptions.iml" />
       <module fileurl="file://$PROJECT_DIR$/core-health/core-health.iml" filepath="$PROJECT_DIR$/core-health/core-health.iml" />
@@ -13,7 +14,6 @@
       <module fileurl="file://$PROJECT_DIR$/external-twilio/external-twilio.iml" filepath="$PROJECT_DIR$/external-twilio/external-twilio.iml" />
       <module fileurl="file://$PROJECT_DIR$/integrations-authorization-client/integrations-authorization-client.iml" filepath="$PROJECT_DIR$/integrations-authorization-client/integrations-authorization-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/integrations-notifications-client/integrations-notifications-client.iml" filepath="$PROJECT_DIR$/integrations-notifications-client/integrations-notifications-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/root-pom.iml" filepath="$PROJECT_DIR$/root-pom.iml" />
     </modules>
   </component>
 </project>

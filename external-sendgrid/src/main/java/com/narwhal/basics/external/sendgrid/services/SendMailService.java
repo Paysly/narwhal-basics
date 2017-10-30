@@ -4,8 +4,10 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.exceptions.api.ApiException;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
+import com.narwhal.basics.external.core.model.EnvironmentVariable;
 import com.narwhal.basics.external.core.model.SendgridSettings;
 import com.narwhal.basics.external.core.services.ApplicationSettingsCachedService;
+import com.narwhal.basics.external.core.services.EnvironmentVariablesCachedService;
 import com.narwhal.basics.external.core.utils.EnvironmentContext;
 import com.narwhal.basics.external.sendgrid.dto.MailDTO;
 import com.narwhal.basics.external.sendgrid.dto.SendEmailMessage;
@@ -21,6 +23,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 import org.apache.velocity.tools.generic.RenderTool;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +37,8 @@ public class SendMailService {
 
     @Inject
     private ApplicationSettingsCachedService settingsCachedService;
+    @Inject
+    private EnvironmentVariablesCachedService environmentVariablesCachedService;
     @Inject
     private SendgridMailEndpoint sendgridMailAPI;
     private VelocityEngine velocityEngine;
@@ -53,6 +58,11 @@ public class SendMailService {
         Context map = new VelocityContext();
         map.put("ctx", new EnvironmentContext(sendgridSettings.getSendgridAppUrl()));
         map.put("model", emailMessage.getModel());
+        //
+        ArrayList<EnvironmentVariable> variables = environmentVariablesCachedService.getCachedEnvironmentVariables(environment);
+        for (EnvironmentVariable variable : variables) {
+            map.put("env." + variable.getId(), variable.getValue());
+        }
         //
         RenderTool renderTool = new RenderTool();
         renderTool.setVelocityEngine(velocityEngine);

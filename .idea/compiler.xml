@@ -23,6 +23,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="AppEngineBasics" target="1.8" />
       <module name="core-dependencies" target="1.7" />
       <module name="core-exceptions" target="1.7" />
       <module name="core-health" target="1.7" />
