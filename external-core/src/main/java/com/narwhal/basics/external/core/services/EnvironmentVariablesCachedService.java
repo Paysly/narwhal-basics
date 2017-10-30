@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.memcached.MemcachedService;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
 import com.narwhal.basics.core.rest.utils.MicroservicesContext;
+import com.narwhal.basics.external.core.dto.EnvironmentVariableDTO;
 import com.narwhal.basics.external.core.model.EnvironmentVariable;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 
@@ -36,13 +37,13 @@ public class EnvironmentVariablesCachedService {
         return variables;
     }
 
-    public void updateCachedEnvironmentVariables(ApplicationEnvironmentTypes environment, ArrayList<EnvironmentVariable> variables) {
+    public void updateCachedEnvironmentVariables(ApplicationEnvironmentTypes environment, ArrayList<EnvironmentVariableDTO> variables) {
         ApiPreconditions.checkNotNull(environment, "environment");
         String namespaceId = environment.toString();
         //
         NamespaceManager.set(namespaceId);
-        variables = new ArrayList<>(editService.editModels(null, variables));
-        memcachedService.putFilteringByNamespace(namespaceId, ENVIRONMENT_VARIABLES, variables);
+        ArrayList<EnvironmentVariable> list = new ArrayList<>(editService.editModels(null, variables));
+        memcachedService.putFilteringByNamespace(namespaceId, ENVIRONMENT_VARIABLES, list);
         NamespaceManager.set(null);
     }
 }

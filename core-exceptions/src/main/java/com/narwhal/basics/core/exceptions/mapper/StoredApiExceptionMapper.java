@@ -9,6 +9,8 @@ import com.narwhal.basics.core.rest.exceptions.api.ApiException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Tomas de Priede
@@ -17,6 +19,8 @@ import javax.ws.rs.ext.Provider;
 @Singleton
 public class StoredApiExceptionMapper implements ExceptionMapper<Exception> {
 
+    @Inject
+    private Logger logger;
     @Inject
     private StoredExceptionDao storedExceptionDao;
 
@@ -28,11 +32,14 @@ public class StoredApiExceptionMapper implements ExceptionMapper<Exception> {
         //
         storedExceptionDao.save(storedException);
         //
+        //
         if (exception instanceof ApiException) {
             //
             ApiException apiException = (ApiException) exception;
+            logger.log(Level.WARNING, apiException.getMessage(), apiException);
             return Response.status(apiException.code).entity(new ExceptionJson(apiException.code, apiException.getMessage())).build();
         } else {
+            logger.log(Level.SEVERE, exception.getMessage(), exception);
             return Response.status(StoredException.SERVER_ERROR_CODE).entity(new ExceptionJson(StoredException.SERVER_ERROR_CODE, exception.getMessage())).build();
         }
     }
