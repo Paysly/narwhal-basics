@@ -9,6 +9,7 @@ import com.narwhal.basics.external.core.services.ApplicationSettingsCachedServic
 import com.narwhal.basics.external.core.utils.EnvironmentContext;
 import com.narwhal.basics.external.firebase.dto.FirebaseCloudMessageResponse;
 import com.narwhal.basics.external.firebase.dto.FirebasePayload;
+import com.narwhal.basics.external.firebase.dto.PushResponse;
 import com.narwhal.basics.external.firebase.dto.SendPushMessage;
 import com.narwhal.basics.external.firebase.endpoint.FirebaseCloudMessagingEndpoint;
 import com.narwhal.basics.external.firebase.exceptions.InvalidFirebaseTokenException;
@@ -37,7 +38,7 @@ public class SendPushService {
     @Inject
     private ApplicationSettingsCachedService cachedService;
 
-    public void sendPush(ApplicationEnvironmentTypes environment, SendPushMessage pushMessage) {
+    public PushResponse sendPush(ApplicationEnvironmentTypes environment, SendPushMessage pushMessage) {
         ApiPreconditions.checkNotNull(environment, "environment");
         logger.log(Level.INFO, "Task to send sms in progress");
         //
@@ -69,6 +70,10 @@ public class SendPushService {
             if (response.getSuccess() == 0) {
                 throw new InvalidFirebaseTokenException(pushMessage.getTo());
             }
+            //
+            PushResponse pushResponse = new PushResponse();
+            pushResponse.init(title, body);
+            return pushResponse;
             //
         } catch (ApiException e) {
             throw e;

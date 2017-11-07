@@ -10,6 +10,7 @@ import com.narwhal.basics.external.core.services.ApplicationSettingsCachedServic
 import com.narwhal.basics.external.core.services.EnvironmentVariablesCachedService;
 import com.narwhal.basics.external.core.utils.EnvironmentContext;
 import com.narwhal.basics.external.sendgrid.dto.MailDTO;
+import com.narwhal.basics.external.sendgrid.dto.MailResponse;
 import com.narwhal.basics.external.sendgrid.dto.SendEmailMessage;
 import com.narwhal.basics.external.sendgrid.dto.endpoint.MailAddress;
 import com.narwhal.basics.external.sendgrid.dto.endpoint.MailContent;
@@ -43,7 +44,7 @@ public class SendMailService {
     private SendgridMailEndpoint sendgridMailAPI;
     private VelocityEngine velocityEngine;
 
-    public void sendMail(ApplicationEnvironmentTypes environment, SendEmailMessage emailMessage) {
+    public MailResponse sendMail(ApplicationEnvironmentTypes environment, SendEmailMessage emailMessage) {
         ApiPreconditions.checkNotNull(environment, "environment");
         logger.log(Level.INFO, "Task to send email in progress");
         //
@@ -79,6 +80,10 @@ public class SendMailService {
             mailDTO.getContent().add(new MailContent(MailContentTypes.HTML, bodyHtml));
             //
             sendgridMailAPI.sendMail(environment, mailDTO);
+            //
+            MailResponse mailResponse = new MailResponse();
+            mailResponse.init(subject, bodyHtml, bodyPlain);
+            return mailResponse;
             //
         } catch (ApiException e) {
             throw e;

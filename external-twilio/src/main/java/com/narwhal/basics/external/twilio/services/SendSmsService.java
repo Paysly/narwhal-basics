@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.exceptions.api.ApiException;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
 import com.narwhal.basics.external.twilio.dto.SendPhoneMessage;
+import com.narwhal.basics.external.twilio.dto.SmsResponse;
 import com.narwhal.basics.external.twilio.endpoint.TwilioMessageEndpoint;
 import com.narwhal.basics.external.twilio.exception.InvalidPhoneNumberException;
 import com.narwhal.basics.external.twilio.exception.InvalidTwilioErrorParsingException;
@@ -31,7 +32,7 @@ public class SendSmsService {
     private VelocityEngine velocityEngine;
     private TwilioMessageEndpoint twilioMessageApi;
 
-    public void sendSms(ApplicationEnvironmentTypes environmentTypes, SendPhoneMessage phoneMessage) {
+    public SmsResponse sendSms(ApplicationEnvironmentTypes environmentTypes, SendPhoneMessage phoneMessage) {
         ApiPreconditions.checkNotNull(environmentTypes, "environmentTypes");
         logger.log(Level.INFO, "Task to send sms in progress");
         //
@@ -74,6 +75,10 @@ public class SendSmsService {
                 }
                 throw new InvalidPhoneNumberException(message);
             }
+            //
+            SmsResponse sms = new SmsResponse();
+            sms.init(description);
+            return sms;
             //
         } catch (ApiException e) {
             throw e;
