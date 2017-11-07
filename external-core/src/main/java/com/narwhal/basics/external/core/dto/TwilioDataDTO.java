@@ -1,5 +1,8 @@
 package com.narwhal.basics.external.core.dto;
 
+import com.narwhal.basics.core.rest.utils.ToStringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+
 import java.io.Serializable;
 
 public class TwilioDataDTO implements Serializable {
@@ -38,5 +41,24 @@ public class TwilioDataDTO implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringUtils.toString(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        return EqualsBuilder.reflectionEquals(this, obj);
     }
 }
