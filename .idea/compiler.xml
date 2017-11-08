@@ -20,6 +20,7 @@
         <module name="integrations-authorization-client" />
         <module name="integrations-authorization-client (1)" />
         <module name="integrations-notifications-client" />
+        <module name="integrations-notifications-client (1)" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -39,6 +40,7 @@
       <module name="integrations-authorization-client" target="1.7" />
       <module name="integrations-authorization-client (1)" target="1.7" />
       <module name="integrations-notifications-client" target="1.7" />
+      <module name="integrations-notifications-client (1)" target="1.7" />
       <module name="root-pom" target="1.8" />
     </bytecodeTargetLevel>
   </component>
