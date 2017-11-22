@@ -32,7 +32,7 @@ public class AuthorizationService {
     public ApplicationToken getApplicationToken(String clientId) {
         ApiPreconditions.checkNotNull(clientId, "clientId");
         Set<ApplicationScopeTypes> allScopes = Sets.newTreeSet(Arrays.asList(ApplicationScopeTypes.values()));
-        String applicationTokenId = Joiner.on("|").join(allScopes);
+        String applicationTokenId = clientId + Joiner.on("|").join(allScopes);
         //
         ApplicationToken applicationToken = (ApplicationToken) memcachedService.get(applicationTokenId);
         if (applicationToken == null) {
@@ -51,7 +51,7 @@ public class AuthorizationService {
     public ApplicationToken renewApplicationToken(String clientId) {
         ApiPreconditions.checkNotNull(clientId, "clientId");
         Set<ApplicationScopeTypes> allScopes = Sets.newTreeSet(Arrays.asList(ApplicationScopeTypes.values()));
-        String applicationTokenId = Joiner.on("|").join(allScopes);
+        String applicationTokenId = clientId + Joiner.on("|").join(allScopes);
         Token token = authorizationApi.authorize(clientId, allScopes);
         ApplicationToken applicationToken = new ApplicationToken();
         applicationToken.init(applicationTokenId, token.getJwt(), token.getExpiration());
