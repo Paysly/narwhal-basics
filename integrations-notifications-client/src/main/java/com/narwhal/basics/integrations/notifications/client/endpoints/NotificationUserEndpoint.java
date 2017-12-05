@@ -8,7 +8,7 @@ import com.narwhal.basics.core.rest.utils.ApiPreconditions;
 import com.narwhal.basics.core.rest.utils.MicroservicesContext;
 import com.narwhal.basics.integrations.authorization.client.api.BaseNarwhalApi;
 import com.narwhal.basics.integrations.authorization.client.services.AuthorizationService;
-import com.narwhal.basics.integrations.notifications.client.dto.notifications.NotificationUserDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.users.NotificationUserDTO;
 import com.narwhal.basics.integrations.notifications.client.exceptions.UserNotificationUnavailable;
 
 import java.util.HashMap;

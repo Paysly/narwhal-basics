@@ -7,9 +7,9 @@ import com.narwhal.basics.core.rest.utils.ApiPreconditions;
 import com.narwhal.basics.core.rest.utils.MicroservicesContext;
 import com.narwhal.basics.integrations.authorization.client.api.BaseNarwhalApi;
 import com.narwhal.basics.integrations.authorization.client.services.AuthorizationService;
-import com.narwhal.basics.integrations.notifications.client.dto.notifications.NotificationForceMessageDTO;
-import com.narwhal.basics.integrations.notifications.client.dto.notifications.NotificationMessageDTO;
-import com.narwhal.basics.integrations.notifications.client.dto.notifications.NotificationMessageResponseDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.messages.NotificationForceMessageDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.messages.NotificationMessageDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.messages.NotificationMessageResponseDTO;
 import com.narwhal.basics.integrations.notifications.client.exceptions.MessageNotificationUnavailable;
 
 @Singleton

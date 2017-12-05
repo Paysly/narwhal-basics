@@ -1,4 +1,4 @@
-package com.narwhal.basics.integrations.notifications.client.dto.notifications;
+package com.narwhal.basics.integrations.notifications.client.dto.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

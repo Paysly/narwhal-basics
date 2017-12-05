@@ -1,5 +1,6 @@
-package com.narwhal.basics.integrations.notifications.client.dto.notifications;
+package com.narwhal.basics.integrations.notifications.client.dto.messages;
 
+import com.narwhal.basics.integrations.notifications.client.dto.messages.NotificationMessageDTO;
 import com.narwhal.basics.integrations.notifications.client.types.NotificationMechanismType;
 
 public class NotificationForceMessageDTO extends NotificationMessageDTO {

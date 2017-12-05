@@ -1,4 +1,4 @@
-package com.narwhal.basics.integrations.notifications.client.dto.notifications;
+package com.narwhal.basics.integrations.notifications.client.dto.users;
 
 import com.googlecode.objectify.annotation.Id;
 import com.narwhal.basics.core.rest.utils.ToStringUtils;

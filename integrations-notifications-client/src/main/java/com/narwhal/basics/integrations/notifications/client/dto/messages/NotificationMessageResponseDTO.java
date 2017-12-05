@@ -1,4 +1,4 @@
-package com.narwhal.basics.integrations.notifications.client.dto.notifications;
+package com.narwhal.basics.integrations.notifications.client.dto.messages;
 
 import java.io.Serializable;
 

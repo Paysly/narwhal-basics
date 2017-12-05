@@ -3,7 +3,7 @@ package com.narwhal.basics.integrations.notifications.client.services;
 import com.google.inject.Inject;
 import com.narwhal.basics.core.rest.model.paging.PagingResult;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
-import com.narwhal.basics.integrations.notifications.client.dto.notifications.NotificationUserDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.users.NotificationUserDTO;
 import com.narwhal.basics.integrations.notifications.client.endpoints.NotificationUserEndpoint;
 import org.apache.commons.lang.StringUtils;
 

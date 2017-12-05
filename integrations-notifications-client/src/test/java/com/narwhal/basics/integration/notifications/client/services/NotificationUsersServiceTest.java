@@ -2,7 +2,7 @@ package com.narwhal.basics.integration.notifications.client.services;
 
 import com.narwhal.basics.core.rest.exceptions.api.BadRequestException;
 import com.narwhal.basics.core.rest.model.paging.PagingResult;
-import com.narwhal.basics.integrations.notifications.client.dto.notifications.NotificationUserDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.users.NotificationUserDTO;
 import com.narwhal.basics.integrations.notifications.client.endpoints.NotificationUserEndpoint;
 import com.narwhal.basics.integrations.notifications.client.services.NotificationUsersService;
 import org.junit.Before;
