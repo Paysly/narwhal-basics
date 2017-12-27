@@ -15,6 +15,7 @@ import com.narwhal.basics.external.firebase.endpoint.FirebaseCloudMessagingEndpo
 import com.narwhal.basics.external.firebase.exceptions.InvalidFirebaseTokenException;
 import com.narwhal.basics.external.firebase.exceptions.PushNotSendException;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
+import lombok.extern.java.Log;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -26,10 +27,11 @@ import java.util.logging.Logger;
 /**
  * @author Tomas de Priede
  */
+@Log
 @Singleton
 public class SendPushService {
 
-    private Logger logger = Logger.getLogger(SendPushService.class.getSimpleName());
+
 
     @Inject
     private VelocityEngine velocityEngine;
@@ -40,7 +42,7 @@ public class SendPushService {
 
     public PushResponse sendPush(ApplicationEnvironmentTypes environment, SendPushMessage pushMessage) {
         ApiPreconditions.checkNotNull(environment, "environment");
-        logger.log(Level.INFO, "Task to send sms in progress");
+        log.log(Level.INFO, "Task to send sms in progress");
         //
         RenderTool renderTool = new RenderTool();
         renderTool.setVelocityEngine(velocityEngine);
@@ -78,7 +80,7 @@ public class SendPushService {
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to render push template", e);
+            log.log(Level.SEVERE, "Failed to render push template", e);
             throw new PushNotSendException(e.getMessage(), e);
         }
     }

@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.exceptions.ApplicationException;
 import com.narwhal.basics.core.rest.exceptions.api.client.HttpClientException;
+import lombok.extern.java.Log;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
@@ -26,9 +27,9 @@ import static com.google.appengine.api.urlfetch.FetchOptions.Builder.allowTrunca
  * @author Tomas de Priede
  */
 @Singleton
+@Log
 public class ApiFetchService {
 
-    private final static Logger logger = Logger.getLogger(ApiFetchService.class.getSimpleName());
     private URLFetchService urlFetchService;
 
     public <T> T fetch(String url, HTTPMethod method, List<HTTPHeader> headers, Serializable params, Class<T> responseClass) {
@@ -67,7 +68,7 @@ public class ApiFetchService {
         T jsonResponse = null;
         //
         try {
-            logger.log(Level.INFO, "Fetching api url: " + url);
+            log.log(Level.INFO, "Fetching api url: " + url);
             //
             FetchOptions fetchOptions = allowTruncate().doNotFollowRedirects();
             //
@@ -87,7 +88,7 @@ public class ApiFetchService {
             //
             HTTPResponse response = urlFetchService.fetch(request);
             String stringResponse = new String(response.getContent(), "utf-8");
-            logger.log(Level.FINE, "Body response: " + stringResponse);
+            log.log(Level.FINE, "Body response: " + stringResponse);
             stringResponse = StringUtils.replace(StringUtils.replace(stringResponse, "\n", ""), "\t", "");
             //
             if (response.getResponseCode() >= 200 && response.getResponseCode() <= 250) {

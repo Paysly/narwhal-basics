@@ -19,6 +19,7 @@ import com.narwhal.basics.external.sendgrid.endpoint.SendgridMailEndpoint;
 import com.narwhal.basics.external.sendgrid.exceptions.EmailNotSendException;
 import com.narwhal.basics.external.sendgrid.types.MailContentTypes;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
+import lombok.extern.java.Log;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -26,15 +27,13 @@ import org.apache.velocity.tools.generic.RenderTool;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Tomas de Priede
  */
+@Log
 @Singleton
 public class SendMailService {
-
-    private Logger logger = Logger.getLogger(SendMailService.class.getSimpleName());
 
     @Inject
     private ApplicationSettingsCachedService settingsCachedService;
@@ -46,7 +45,7 @@ public class SendMailService {
 
     public MailResponse sendMail(ApplicationEnvironmentTypes environment, SendEmailMessage emailMessage) {
         ApiPreconditions.checkNotNull(environment, "environment");
-        logger.log(Level.INFO, "Task to send email in progress");
+        log.log(Level.INFO, "Task to send email in progress");
         //
         SendgridSettings sendgridSettings = settingsCachedService.getCachedApplicationSettings(environment);
         sendgridSettings.checkSendgridData();
@@ -88,7 +87,7 @@ public class SendMailService {
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to render template", e);
+            log.log(Level.SEVERE, "Failed to render template", e);
             throw new EmailNotSendException(e.getMessage(), e);
         }
     }

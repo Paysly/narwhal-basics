@@ -13,6 +13,7 @@ import com.narwhal.basics.external.twilio.exception.SMSServiceNotAvailableExcept
 import com.narwhal.basics.external.twilio.model.TwilioMessageContainerResponse;
 import com.narwhal.basics.external.twilio.types.TwilioErrorCode;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
+import lombok.extern.java.Log;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -24,17 +25,16 @@ import java.util.logging.Logger;
 /**
  * @author Tomas de Priede
  */
+@Log
 @Singleton
 public class SendSmsService {
-
-    private Logger logger = Logger.getLogger(SendSmsService.class.getSimpleName());
 
     private VelocityEngine velocityEngine;
     private TwilioMessageEndpoint twilioMessageApi;
 
     public SmsResponse sendSms(ApplicationEnvironmentTypes environmentTypes, SendPhoneMessage phoneMessage) {
         ApiPreconditions.checkNotNull(environmentTypes, "environmentTypes");
-        logger.log(Level.INFO, "Task to send sms in progress");
+        log.log(Level.INFO, "Task to send sms in progress");
         //
         Context map = new VelocityContext();
         //map.put("ctx", new EnvironmentContext());
@@ -83,7 +83,7 @@ public class SendSmsService {
         } catch (ApiException e) {
             throw e;
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Failed to render sms template", e);
+            log.log(Level.SEVERE, "Failed to render sms template", e);
             throw new InvalidTwilioErrorParsingException(e.getMessage(), e);
         }
     }

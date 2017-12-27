@@ -7,6 +7,8 @@ import com.narwhal.basics.core.jobs.type.JobType;
 import com.narwhal.basics.core.jobs.utils.JobConstants;
 import com.narwhal.basics.core.rest.model.BaseModel;
 import com.narwhal.basics.core.rest.utils.ToStringUtils;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.UUID;
@@ -14,6 +16,8 @@ import java.util.UUID;
 /**
  * Created by tomyair on 8/19/17.
  */
+@Data
+@NoArgsConstructor
 @Entity
 @Index
 public class JobStatus implements BaseModel {
@@ -44,48 +48,12 @@ public class JobStatus implements BaseModel {
     @Unindex
     private Date updatedAt;
 
-    public JobStatus() {
-    }
-
     public void init() {
         this.id = UUID.randomUUID().toString();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public JobStatusType getStatusType() {
-        return statusType;
-    }
-
-    public void setStatusType(JobStatusType statusType) {
-        this.statusType = statusType;
-    }
-
-    public Integer getEntitiesRead() {
-        return entitiesRead;
-    }
-
-    public void setEntitiesRead(Integer entitiesRead) {
-        this.entitiesRead = entitiesRead;
-    }
-
-    public Integer getEntitiesProcessed() {
-        return entitiesProcessed;
-    }
-
-    public void setEntitiesProcessed(Integer entitiesProcessed) {
-        this.entitiesProcessed = entitiesProcessed;
-    }
 
     public void increaseEntitiesRead(int entities) {
         this.entitiesRead += entities;
@@ -93,54 +61,6 @@ public class JobStatus implements BaseModel {
 
     public void increaseEntitiesProcessed(int entities) {
         this.entitiesProcessed += entities;
-    }
-
-    public JobType getType() {
-        return type;
-    }
-
-    public void setType(JobType type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLaunchedBy() {
-        return launchedBy;
-    }
-
-    public void setLaunchedBy(String launchedBy) {
-        this.launchedBy = launchedBy;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getException() {
-        return exception;
-    }
-
-    public void setException(String exception) {
-        this.exception = exception;
     }
 
     @Override

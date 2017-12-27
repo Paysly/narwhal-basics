@@ -15,6 +15,7 @@ import com.narwhal.basics.integrations.authorization.client.dto.Token;
 import com.narwhal.basics.integrations.authorization.client.exceptions.InvalidScopeException;
 import com.narwhal.basics.integrations.authorization.client.model.ApplicationToken;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationScopeTypes;
+import lombok.extern.java.Log;
 
 import java.util.Arrays;
 import java.util.Date;

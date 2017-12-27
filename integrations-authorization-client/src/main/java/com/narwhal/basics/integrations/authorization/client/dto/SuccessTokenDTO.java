@@ -5,10 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationScopeTypes;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Set;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SuccessTokenDTO implements Serializable {
@@ -16,36 +23,4 @@ public class SuccessTokenDTO implements Serializable {
     private long expiration;
     private Set<ApplicationScopeTypes> scopes;
     private ApplicationEnvironmentTypes environment;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public long getExpiration() {
-        return expiration;
-    }
-
-    public void setExpiration(long expiration) {
-        this.expiration = expiration;
-    }
-
-    public Set<ApplicationScopeTypes> getScopes() {
-        return scopes;
-    }
-
-    public void setScopes(Set<ApplicationScopeTypes> scopes) {
-        this.scopes = scopes;
-    }
-
-    public ApplicationEnvironmentTypes getEnvironment() {
-        return environment;
-    }
-
-    public void setEnvironment(ApplicationEnvironmentTypes environment) {
-        this.environment = environment;
-    }
 }

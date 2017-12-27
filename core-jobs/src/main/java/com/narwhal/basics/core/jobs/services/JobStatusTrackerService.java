@@ -9,6 +9,7 @@ import com.narwhal.basics.core.jobs.utils.JobMemcachedKeys;
 import com.narwhal.basics.core.rest.exceptions.EntityNotFoundException;
 import com.narwhal.basics.core.rest.memcached.MemcachedService;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
+import lombok.extern.java.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -20,10 +21,9 @@ import java.util.logging.Logger;
  * Created by tomyair on 8/19/17.
  */
 @Singleton
+@Log
 public class JobStatusTrackerService {
 
-    @Inject
-    private Logger logger;
     @Inject
     private JobStatusDao jobStatusDao;
     @Inject
@@ -85,7 +85,7 @@ public class JobStatusTrackerService {
             memcachedService.put(JobMemcachedKeys.JOB_STATUS + jobId, jobStatus);
             //
         } catch (EntityNotFoundException e) {
-            logger.log(Level.SEVERE, "Failed to find job. Unable to track finish status with id: " + jobId, e);
+            log.log(Level.SEVERE, "Failed to find job. Unable to track finish status with id: " + jobId, e);
         }
     }
 }

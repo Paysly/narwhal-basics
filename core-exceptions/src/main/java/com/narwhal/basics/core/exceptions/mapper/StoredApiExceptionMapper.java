@@ -5,22 +5,24 @@ import com.google.inject.Singleton;
 import com.narwhal.basics.core.exceptions.dao.StoredExceptionDao;
 import com.narwhal.basics.core.exceptions.model.StoredException;
 import com.narwhal.basics.core.rest.exceptions.api.ApiException;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.java.Log;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Tomas de Priede
  */
 @Provider
 @Singleton
+@Log
 public class StoredApiExceptionMapper implements ExceptionMapper<Exception> {
 
-    @Inject
-    private Logger logger;
     @Inject
     private StoredExceptionDao storedExceptionDao;
 
@@ -36,41 +38,20 @@ public class StoredApiExceptionMapper implements ExceptionMapper<Exception> {
         if (exception instanceof ApiException) {
             //
             ApiException apiException = (ApiException) exception;
-            logger.log(Level.WARNING, apiException.getMessage(), apiException);
+            log.log(Level.WARNING, apiException.getMessage(), apiException);
             return Response.status(apiException.code).entity(new ExceptionJson(apiException.code, apiException.getMessage())).build();
         } else {
-            logger.log(Level.SEVERE, exception.getMessage(), exception);
+            log.log(Level.SEVERE, exception.getMessage(), exception);
             return Response.status(StoredException.SERVER_ERROR_CODE).entity(new ExceptionJson(StoredException.SERVER_ERROR_CODE, exception.getMessage())).build();
         }
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public class ExceptionJson {
 
         private int code;
         private String message;
-
-        public ExceptionJson() {
-        }
-
-        public ExceptionJson(int code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-
-        public int getCode() {
-            return code;
-        }
-
-        public void setCode(int code) {
-            this.code = code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
     }
 }

@@ -7,6 +7,8 @@ import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Unindex;
 import com.narwhal.basics.core.rest.exceptions.api.ApiException;
 import com.narwhal.basics.core.rest.model.BaseModel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
@@ -15,6 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Index
 public class StoredException implements BaseModel {
@@ -60,72 +64,5 @@ public class StoredException implements BaseModel {
         //
         this.createdAt = new Date();
         this.updatedAt = this.createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getExceptionName() {
-        return exceptionName;
-    }
-
-    public void setExceptionName(String exceptionName) {
-        this.exceptionName = exceptionName;
-    }
-
-    public Set<String> getSearchNames() {
-        return searchNames;
-    }
-
-    public void setSearchNames(Set<String> searchName) {
-        this.searchNames = searchName;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getStackTrace() {
-        return stackTrace;
-    }
-
-    public void setStackTrace(String stackTrace) {
-        this.stackTrace = stackTrace;
-    }
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public void setId(String id) {
-    }
-
-    @Override
-    public Date getCreatedAt() {
-        return this.createdAt;
-    }
-
-    @Override
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 }

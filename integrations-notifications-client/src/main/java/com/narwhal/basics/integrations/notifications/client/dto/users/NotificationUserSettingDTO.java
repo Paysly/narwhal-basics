@@ -4,6 +4,9 @@ import com.googlecode.objectify.annotation.Id;
 import com.narwhal.basics.core.rest.utils.ToStringUtils;
 import com.narwhal.basics.integrations.notifications.client.exceptions.NoUserSettingSelectedException;
 import com.narwhal.basics.integrations.notifications.client.types.NotificationMechanismType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -13,6 +16,9 @@ import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class NotificationUserSettingDTO implements Serializable {
 
     @Id
@@ -43,54 +49,6 @@ public class NotificationUserSettingDTO implements Serializable {
         //
         this.createdAt = new Date();
         this.updatedAt = this.createdAt;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getGroupKey() {
-        return groupKey;
-    }
-
-    public void setGroupKey(String groupKey) {
-        this.groupKey = groupKey;
-    }
-
-    public Set<NotificationMechanismType> getSelectedValues() {
-        return selectedValues;
-    }
-
-    public void setSelectedValues(Set<NotificationMechanismType> selectedValues) {
-        this.selectedValues = selectedValues;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public boolean equals(Object obj) {

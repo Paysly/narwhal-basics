@@ -2,6 +2,9 @@ package com.narwhal.basics.external.twilio.model;
 
 
 import com.narwhal.basics.core.rest.utils.ToStringUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -9,6 +12,9 @@ import java.io.Serializable;
 /**
  * @author Tomas de Priede
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TwilioMessageContainerResponse implements Serializable {
 
     private TwilioMessageResponse messageResponse;
@@ -20,22 +26,6 @@ public class TwilioMessageContainerResponse implements Serializable {
 
     public boolean hasError() {
         return errorResponse != null;
-    }
-
-    public TwilioMessageResponse getMessageResponse() {
-        return messageResponse;
-    }
-
-    public void setMessageResponse(TwilioMessageResponse messageResponse) {
-        this.messageResponse = messageResponse;
-    }
-
-    public TwilioErrorResponse getErrorResponse() {
-        return errorResponse;
-    }
-
-    public void setErrorResponse(TwilioErrorResponse errorResponse) {
-        this.errorResponse = errorResponse;
     }
 
     @Override
