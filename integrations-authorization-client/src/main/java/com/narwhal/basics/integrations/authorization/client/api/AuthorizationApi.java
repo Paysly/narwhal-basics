@@ -1,11 +1,20 @@
 package com.narwhal.basics.integrations.authorization.client.api;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import javax.ws.rs.core.MediaType;
+
 import com.google.appengine.api.urlfetch.HTTPHeader;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.common.base.Joiner;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.api.ApiFetchService;
+import com.narwhal.basics.core.rest.exceptions.api.client.HttpClientException;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
 import com.narwhal.basics.core.rest.utils.MicroservicesContext;
 import com.narwhal.basics.integrations.authorization.client.dto.SuccessTokenDTO;
@@ -13,11 +22,8 @@ import com.narwhal.basics.integrations.authorization.client.dto.Token;
 import com.narwhal.basics.integrations.authorization.client.dto.TokenValidation;
 import com.narwhal.basics.integrations.authorization.client.exceptions.InvalidCredentialsException;
 import com.narwhal.basics.integrations.authorization.client.exceptions.InvalidTokenException;
+import com.narwhal.basics.integrations.authorization.client.exceptions.InvalidTokenHasExpiredException;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationScopeTypes;
-
-import javax.ws.rs.core.MediaType;
-import java.net.URLEncoder;
-import java.util.*;
 
 @Singleton
 public class AuthorizationApi {
@@ -34,9 +40,15 @@ public class AuthorizationApi {
         headerList.add(new HTTPHeader("Content-type", MediaType.APPLICATION_JSON));
         //
         try {
-            SuccessTokenDTO successTokenDTO = apiFetchService.fetch(context.getAuthorizationEndpoint(), HTTPMethod.POST,
-                    headerList, new TokenValidation(jwtToken), SuccessTokenDTO.class);
+            SuccessTokenDTO successTokenDTO = apiFetchService.fetch(context.getAuthorizationEndpoint(), HTTPMethod.POST, headerList,
+                    new TokenValidation(jwtToken), SuccessTokenDTO.class);
             return successTokenDTO;
+        } catch (HttpClientException e) {
+            if (e.getCode() == InvalidTokenHasExpiredException.ERROR_CODE) {
+                throw new InvalidTokenHasExpiredException(e);
+            } else {
+                throw new InvalidTokenException(e);
+            }
         } catch (Exception e) {
             throw new InvalidTokenException(e);
         }
@@ -57,8 +69,7 @@ public class AuthorizationApi {
         //
         try {
             params.put("scopes", URLEncoder.encode(Joiner.on("|").join(scopes), "UTF-8"));
-            Token token = apiFetchService.fetch(context.getAuthorizationEndpoint(), HTTPMethod.GET,
-                    headerList, params, Token.class);
+            Token token = apiFetchService.fetch(context.getAuthorizationEndpoint(), HTTPMethod.GET, headerList, params, Token.class);
             return token;
         } catch (Exception e) {
             throw new InvalidCredentialsException(e);
