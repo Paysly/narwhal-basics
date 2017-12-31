@@ -16,7 +16,7 @@ public class NotificationMessageDTO implements Serializable {
     private String userTo;
     private String notificationKey;
     private String templateName;
-    private Map<String, Object> model;
+    private Serializable model;
 
     @Override
     public String toString() {
