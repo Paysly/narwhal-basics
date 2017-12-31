@@ -29,9 +29,9 @@ import com.narwhal.basics.integrations.authorization.client.types.ApplicationSco
 public class AuthorizationApi {
 
     @Inject
-    private ApiFetchService apiFetchService;
+    protected ApiFetchService apiFetchService;
     @Inject
-    private MicroservicesContext context;
+    protected MicroservicesContext context;
 
     public SuccessTokenDTO validateToken(String jwtToken) {
         ApiPreconditions.checkNotNull(jwtToken, "jwtToken");
@@ -44,7 +44,7 @@ public class AuthorizationApi {
                     new TokenValidation(jwtToken), SuccessTokenDTO.class);
             return successTokenDTO;
         } catch (HttpClientException e) {
-            if (e.getCode() == InvalidTokenHasExpiredException.ERROR_CODE) {
+            if (e.getCode() == InvalidTokenHasExpiredException.HTTP_ERROR_CODE) {
                 throw new InvalidTokenHasExpiredException(e);
             } else {
                 throw new InvalidTokenException(e);
