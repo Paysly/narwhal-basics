@@ -101,23 +101,23 @@ public class DateUtilsTest {
         assertEquals(date, dateExpected);
     }
 
-    @Test
-    public void test_getFirstDayOfWeek() {
-
-        Integer week = 36;
-        Calendar cal = Calendar.getInstance();
-        cal.set(2017, 8, 3, 0, 0, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        Date dateExpected = cal.getTime();
-        Date date = DateUtils.getFirstDayOfWeek(week);
-        assertEquals(dateExpected, date);
-        //
-        week = 37;
-        cal = Calendar.getInstance();
-        cal.set(2017, 8, 10, 0, 0, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        dateExpected = cal.getTime();
-        date = DateUtils.getFirstDayOfWeek(week);
-        assertEquals(dateExpected, date);
-    }
+//    @Test
+//    public void test_getFirstDayOfWeek() {
+//
+//        Integer week = 36;
+//        Calendar cal = Calendar.getInstance();
+//        cal.set(2017, 8, 3, 0, 0, 0);
+//        cal.set(Calendar.MILLISECOND, 0);
+//        Date dateExpected = cal.getTime();
+//        Date date = DateUtils.getFirstDayOfWeek(week);
+//        assertEquals(dateExpected, date);
+//        //
+//        week = 37;
+//        cal = Calendar.getInstance();
+//        cal.set(2017, 8, 10, 0, 0, 0);
+//        cal.set(Calendar.MILLISECOND, 0);
+//        dateExpected = cal.getTime();
+//        date = DateUtils.getFirstDayOfWeek(week);
+//        assertEquals(dateExpected, date);
+//    }
 }

@@ -9,9 +9,11 @@ import com.narwhal.basics.core.rest.utils.MicroservicesContext;
 import com.narwhal.basics.integrations.authorization.client.api.BaseNarwhalApi;
 import com.narwhal.basics.integrations.authorization.client.services.AuthorizationService;
 import com.narwhal.basics.integrations.notifications.client.dto.users.NotificationUserDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.users.NotificationUserPagingResultDTO;
 import com.narwhal.basics.integrations.notifications.client.exceptions.UserNotificationUnavailable;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 @Singleton
@@ -29,7 +31,7 @@ public class NotificationUserEndpoint extends BaseNarwhalApi {
         NOTIFICATION_URL = "https://positano-notifications.appspot.com/api/v1" + "/users/";
     }
 
-    public PagingResult<NotificationUserDTO> getUsers(String clientId, Integer size, String cursor, String email) {
+    public NotificationUserPagingResultDTO getUsers(String clientId, Integer size, String cursor, String email) {
         ApiPreconditions.checkNotNull(clientId, "clientId");
         try {
             HashMap<String, String> hashMap = new HashMap<>();
@@ -44,7 +46,7 @@ public class NotificationUserEndpoint extends BaseNarwhalApi {
                 hashMap.put("cursor", cursor);
             }
             //
-            return securedGet(clientId, NOTIFICATION_URL, hashMap, PagingResult.class);
+            return securedGet(clientId, NOTIFICATION_URL, hashMap, NotificationUserPagingResultDTO.class);
         } catch (Exception e) {
             throw new UserNotificationUnavailable("Failed to fetch Notification NotificationUserDTO", e);
         }
