@@ -3,6 +3,7 @@ package com.narwhal.basics.integration.notifications.client.services;
 import com.narwhal.basics.core.rest.exceptions.api.BadRequestException;
 import com.narwhal.basics.core.rest.model.paging.PagingResult;
 import com.narwhal.basics.integrations.notifications.client.dto.users.NotificationUserDTO;
+import com.narwhal.basics.integrations.notifications.client.dto.users.NotificationUserPagingResultDTO;
 import com.narwhal.basics.integrations.notifications.client.endpoints.NotificationUserEndpoint;
 import com.narwhal.basics.integrations.notifications.client.services.NotificationUsersService;
 import org.junit.Before;
@@ -49,7 +50,7 @@ public class NotificationUsersServiceTest {
         dto2.setPhone("54337225");
         dto2.setId("45978465167");
         //
-        PagingResult pagingResult = new PagingResult();
+        NotificationUserPagingResultDTO pagingResult = new NotificationUserPagingResultDTO();
         //
         ArrayList<NotificationUserDTO> list = new ArrayList<>();
         list.add(dto);
