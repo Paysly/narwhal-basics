@@ -7,4 +7,5 @@ public enum JobType {
     INDEX,
     DAILY_COUNT,
     INSTITUTIONS_CACHE,
+    NOTIFY_USERS,
 }
