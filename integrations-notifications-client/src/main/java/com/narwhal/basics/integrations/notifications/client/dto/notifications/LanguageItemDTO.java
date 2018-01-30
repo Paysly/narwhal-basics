@@ -6,27 +6,23 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class NotificationItemDTO implements Serializable, Comparable<NotificationItemDTO> {
+public class LanguageItemDTO implements Serializable, Comparable<LanguageItemDTO> {
 
     private String id;
-    private String notificationKey;
-    private String groupNotificationKey;
+    private String languageKey;
+    private String groupLanguageKey;
     private int sort;
-    private String version;
     private Date createdAt;
     private Date updatedAt;
+    private String version;
 
     @Override
-    public int compareTo(NotificationItemDTO o) {
+    public int compareTo(LanguageItemDTO o) {
         return new Integer(this.sort).compareTo(o.sort);
     }
 }
