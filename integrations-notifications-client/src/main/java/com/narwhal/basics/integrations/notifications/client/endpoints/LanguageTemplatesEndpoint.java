@@ -23,7 +23,7 @@ public class LanguageTemplatesEndpoint extends BaseNarwhalApi {
         this.microservicesContext = microservicesContext;
         //
         TEMPLATES_URL = microservicesContext.getNotificationsEndpoint() + "/notification/%s/language/group/%s/items/%s/templates/";
-        TEMPLATE_URL = TEMPLATES_URL + "%s/%s";
+        TEMPLATE_URL = TEMPLATES_URL + "%s";
     }
 
     public ArrayList<LanguageTemplateDTO> getTemplates(String clientId, String versionId, String groupKey, String languageKey) {
