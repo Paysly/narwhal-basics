@@ -21,7 +21,7 @@ public class LanguageGroupsService {
     public ArrayList<LanguageGroupDTO> getGroups(String clientId, String versionId) {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         //
-        String key = String.format(MemcachedConstants.NOTIFICATION_GROUPS_KEYS, versionId);
+        String key = String.format(MemcachedConstants.NOTIFICATION_LANGUAGE_GROUPS_KEYS, versionId);
         ArrayList<LanguageGroupDTO> groups = (ArrayList<LanguageGroupDTO>) memcachedService.get(key);
         //
         if (groups == null) {
@@ -35,7 +35,7 @@ public class LanguageGroupsService {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groups, "groups");
         //
-        String key = String.format(MemcachedConstants.NOTIFICATION_GROUPS_KEYS, versionId);
+        String key = String.format(MemcachedConstants.NOTIFICATION_LANGUAGE_GROUPS_KEYS, versionId);
         groups = languageGroupsEndpoint.updateGroups(clientId, versionId, groups);
         memcachedService.delete(key);
         memcachedService.put(key, groups);

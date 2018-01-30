@@ -25,7 +25,7 @@ public class LanguageItemsService {
         ApiPreconditions.checkNotNull(versionId, "versionId");
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         //
-        String key = String.format(MemcachedConstants.NOTIFICATION_ITEMS_KEYS, versionId, groupKey);
+        String key = String.format(MemcachedConstants.NOTIFICATION_LANGUAGE_ITEMS_KEYS, versionId, groupKey);
         ArrayList<LanguageItemDTO> groups = (ArrayList<LanguageItemDTO>) memcachedService.get(key);
         //
         if (groups == null) {
@@ -42,7 +42,7 @@ public class LanguageItemsService {
         //
         items = languageItemsApi.updateItems(clientId, versionId, groupKey, items);
         //
-        String key = String.format(MemcachedConstants.NOTIFICATION_GROUPS_KEYS, versionId);
+        String key = String.format(MemcachedConstants.NOTIFICATION_LANGUAGE_GROUPS_KEYS, versionId);
         memcachedService.delete(key);
         //
         List<LanguageItemDTO> itemsFiltered = new ArrayList<>();
@@ -51,7 +51,7 @@ public class LanguageItemsService {
                 // Group key was update, remove them because it was moved
                 itemsFiltered.add(item);
             }
-            key = String.format(MemcachedConstants.NOTIFICATION_ITEMS_KEYS, versionId, groupKey);
+            key = String.format(MemcachedConstants.NOTIFICATION_LANGUAGE_ITEMS_KEYS, versionId, groupKey);
             memcachedService.delete(key);
         }
         //

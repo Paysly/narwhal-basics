@@ -23,7 +23,7 @@ public class LanguageTemplatesService {
         ApiPreconditions.checkNotNull(groupKey, "groupKey");
         ApiPreconditions.checkNotNull(languageKey, "languageKey");
         //
-        String key = String.format(MemcachedConstants.NOTIFICATION_TEMPLATES_KEYS, versionId, groupKey, languageKey);
+        String key = String.format(MemcachedConstants.NOTIFICATION_LANGUAGE_TEMPLATES_KEYS, versionId, groupKey, languageKey);
         return key;
     }
 
