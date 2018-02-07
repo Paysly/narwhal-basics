@@ -28,7 +28,7 @@ public class NotificationUserEndpoint extends BaseNarwhalApi {
         this.apiFetchService = apiFetchService;
         this.authorizationService = authorizationService;
         //
-        NOTIFICATION_URL = "https://positano-notifications.appspot.com/api/v1" + "/users/";
+        NOTIFICATION_URL = microservicesContext.getNotificationsEndpoint() + "/users/";
     }
 
     public NotificationUserPagingResultDTO getUsers(String clientId, Integer size, String cursor, String email) {
