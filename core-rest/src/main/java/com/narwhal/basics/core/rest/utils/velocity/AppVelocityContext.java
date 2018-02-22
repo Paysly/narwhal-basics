@@ -2,6 +2,7 @@ package com.narwhal.basics.core.rest.utils.velocity;
 
 import com.narwhal.basics.core.rest.utils.SharedConstants;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.tools.generic.DateTool;
 import org.apache.velocity.tools.generic.NumberTool;
 
 import java.util.Calendar;
@@ -13,6 +14,7 @@ import java.util.GregorianCalendar;
 public class AppVelocityContext extends VelocityContext {
 
     private static final String NUMBER_TOOL = "number";
+    private static final String DATE_TOOL = "date";
     public static final String DATE_NUMBER = "DATE_NUMBER";
     public static final String DATE_MONTH = "DATE_MONTH";
     public static final String DATE_YEAR = "DATE_YEAR";
@@ -20,6 +22,7 @@ public class AppVelocityContext extends VelocityContext {
     public AppVelocityContext() {
         super();
         put(NUMBER_TOOL, new NumberTool());
+        put(DATE_TOOL, new DateTool());
         //
         GregorianCalendar calendar = new GregorianCalendar();
         put(DATE_NUMBER, calendar.get(Calendar.DATE));
