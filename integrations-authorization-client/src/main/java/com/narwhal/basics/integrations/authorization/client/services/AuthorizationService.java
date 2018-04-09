@@ -16,6 +16,7 @@ import com.narwhal.basics.integrations.authorization.client.exceptions.InvalidSc
 import com.narwhal.basics.integrations.authorization.client.model.ApplicationToken;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationScopeTypes;
 import lombok.extern.java.Log;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -34,12 +35,13 @@ public class AuthorizationService {
         ApiPreconditions.checkNotNull(clientId, "clientId");
         Set<ApplicationScopeTypes> allScopes = Sets.newTreeSet(Arrays.asList(ApplicationScopeTypes.values()));
         String applicationTokenId = clientId + Joiner.on("|").join(allScopes);
+        String applicationTokenKey = DigestUtils.sha256Hex(applicationTokenId);
         //
-        ApplicationToken applicationToken = (ApplicationToken) memcachedService.get(applicationTokenId);
+        ApplicationToken applicationToken = (ApplicationToken) memcachedService.get(applicationTokenKey);
         if (applicationToken == null) {
             try {
                 applicationToken = applicationTokenDao.get(ApplicationToken.class, applicationTokenId);
-                memcachedService.put(applicationTokenId, applicationToken, Expiration.onDate(applicationToken.getExpirationDate()));
+                memcachedService.put(applicationTokenKey, applicationToken, Expiration.onDate(applicationToken.getExpirationDate()));
             } catch (EntityNotFoundException e) {
                 //Token not found in memcached neither in db. Probably a change of scopes or first run
                 applicationToken = renewApplicationToken(clientId);
