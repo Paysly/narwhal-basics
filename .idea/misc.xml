@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="EclipseCodeFormatter">
-    <option name="defaultSettings" value="true" />
-    <option name="enableGWT" value="true" />
-    <option name="enableJSFormatting" value="true" />
-    <option name="formatOtherFileTypesWithIntelliJ" value="false" />
-    <option name="formatter" value="ECLIPSE" />
-    <option name="id" value="1429539120175" />
-    <option name="name" value="default" />
-    <option name="pathToConfigFileJS" value="$USER_HOME$/Google Drive/kaytoa-codestyles.xml" />
-    <option name="pathToConfigFileJava" value="$USER_HOME$/Google Drive/kaytoa-codestyles.xml" />
-    <option name="selectedJavaProfile" value="Kaytoa Conventions" />
-    <option name="selectedJavaScriptProfile" value="Kaytoa Conventions" />
-  </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="appengine-java" url="file://$PROJECT_DIR$" />
   </component>

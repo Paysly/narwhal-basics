@@ -3,16 +3,11 @@
   <component name="EclipseCodeFormatterProjectSettings">
     <option name="selectedGlobalProfile">
       <Settings>
-        <option name="enableGWT" value="true" />
-        <option name="enableJSFormatting" value="true" />
-        <option name="formatOtherFileTypesWithIntelliJ" value="false" />
         <option name="formatter" value="ECLIPSE" />
-        <option name="id" value="1429539120175" />
+        <option name="id" value="1488555990967" />
         <option name="name" value="default" />
-        <option name="pathToConfigFileJS" value="$USER_HOME$/Google Drive/kaytoa-codestyles.xml" />
-        <option name="pathToConfigFileJava" value="$USER_HOME$/Google Drive/kaytoa-codestyles.xml" />
-        <option name="selectedJavaProfile" value="Kaytoa Conventions" />
-        <option name="selectedJavaScriptProfile" value="Kaytoa Conventions" />
+        <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../Tools/prestosports-codestyles.xml" />
+        <option name="selectedJavaProfile" value="PrestoSports Conventions" />
       </Settings>
     </option>
   </component>
