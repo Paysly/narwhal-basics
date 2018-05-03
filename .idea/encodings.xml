@@ -10,9 +10,9 @@
     <file url="file://$PROJECT_DIR$/external-core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/external-firebase" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/external-sendgrid" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/external-slack" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/external-twilio" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/integrations-authorization-client" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/integrations-notifications-client" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/integrations-status-client" charset="UTF-8" />
   </component>
 </project>
