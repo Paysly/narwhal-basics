@@ -1,5 +1,17 @@
 package com.narwhal.basics.core.rest.api;
 
+import static com.google.appengine.api.urlfetch.FetchOptions.Builder.allowTruncate;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+
+import org.apache.commons.lang.StringUtils;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.appengine.api.urlfetch.*;
@@ -9,19 +21,8 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.exceptions.ApplicationException;
 import com.narwhal.basics.core.rest.exceptions.api.client.HttpClientException;
+
 import lombok.extern.java.Log;
-import org.apache.commons.lang.StringUtils;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static com.google.appengine.api.urlfetch.FetchOptions.Builder.allowTruncate;
 
 /**
  * @author Tomas de Priede
@@ -93,7 +94,9 @@ public class ApiFetchService {
             //
             if (response.getResponseCode() >= 200 && response.getResponseCode() <= 250) {
                 //
-                if (responseClass != null) {
+                if (responseClass == String.class) {
+                    jsonResponse = (T)stringResponse;
+                } else if (responseClass != null) {
                     ObjectMapper mapper = new ObjectMapper();
                     jsonResponse = mapper.readValue(stringResponse, responseClass);
                 }
