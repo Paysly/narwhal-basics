@@ -63,6 +63,8 @@ public class ApplicationSettingsCachedServiceTest {
         applicationSettings.setFirebaseServerKey("key");
         applicationSettings.setFirebaseMessagingUrl("url");
         applicationSettings.setFirebaseIconUrl("url");
+        applicationSettings.setFirebaseAndroidKey("android");
+        applicationSettings.setFirebaseIosKey("ios");
         applicationSettings.init(applicationSettingsId);
         //
         when((ApplicationSettings) memcachedService.getFilteringByNamespace(environmentTypes.toString(), applicationSettingsId)).thenReturn(applicationSettings);
@@ -86,6 +88,8 @@ public class ApplicationSettingsCachedServiceTest {
         applicationSettings1.setFirebaseServerKey("key");
         applicationSettings1.setFirebaseMessagingUrl("url");
         applicationSettings1.setFirebaseIconUrl("url");
+        applicationSettings1.setFirebaseAndroidKey("android");
+        applicationSettings1.setFirebaseIosKey("ios");
         applicationSettings1.init(applicationSettingsId);
         //
         when((ApplicationSettings) memcachedService.getFilteringByNamespace(environmentTypes.toString(), applicationSettingsId)).thenReturn(applicationSettings);
@@ -108,6 +112,8 @@ public class ApplicationSettingsCachedServiceTest {
         applicationSettings.setFirebaseServerKey("key");
         applicationSettings.setFirebaseMessagingUrl("url");
         applicationSettings.setFirebaseIconUrl("url");
+        applicationSettings.setFirebaseAndroidKey("android");
+        applicationSettings.setFirebaseIosKey("ios");
         applicationSettings.init(applicationSettingsId);
         //
         applicationSettingsCachedService.updateCachedApplicationSettings(environment, applicationSettings);

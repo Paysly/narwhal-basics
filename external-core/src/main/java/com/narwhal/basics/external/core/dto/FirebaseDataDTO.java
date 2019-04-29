@@ -16,6 +16,8 @@ public class FirebaseDataDTO implements Serializable {
     private String messagingUrl;
     private String appUrl;
     private String iconUrl;
+    private String iosKey;
+    private String androidKey;
 
     @Override
     public String toString() {

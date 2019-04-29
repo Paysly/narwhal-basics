@@ -90,6 +90,8 @@ public class ApplicationSettingsCachedService {
         applicationSettings.setFirebaseIconUrl(firebaseDataDTO.getIconUrl());
         applicationSettings.setFirebaseMessagingUrl(firebaseDataDTO.getMessagingUrl());
         applicationSettings.setFirebaseServerKey(firebaseDataDTO.getServerKey());
+        applicationSettings.setFirebaseIosKey(firebaseDataDTO.getIosKey());
+        applicationSettings.setFirebaseAndroidKey(firebaseDataDTO.getAndroidKey());
         //
         applicationSettings.setUpdatedAt(new Date());
         //

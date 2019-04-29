@@ -162,6 +162,8 @@ public class ApplicationSettingsApiTest {
         applicationSettings.setFirebaseIconUrl("sid");
         applicationSettings.setFirebaseMessagingUrl("token");
         applicationSettings.setFirebaseServerKey("number");
+        applicationSettings.setFirebaseIosKey("ios");
+        applicationSettings.setFirebaseAndroidKey("android");
         //
         FirebaseDataDTO dataDTO = new FirebaseDataDTO();
         //
@@ -169,6 +171,8 @@ public class ApplicationSettingsApiTest {
         dataDTO.setIconUrl(applicationSettings.getFirebaseIconUrl());
         dataDTO.setMessagingUrl(applicationSettings.getFirebaseMessagingUrl());
         dataDTO.setServerKey(applicationSettings.getFirebaseServerKey());
+        dataDTO.setIosKey(applicationSettings.getFirebaseIosKey());
+        dataDTO.setAndroidKey(applicationSettings.getFirebaseAndroidKey());
         //
         when(authorizationService.validateToken(auth, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS)).thenReturn(successTokenDTO);
         when(cachedService.getCachedApplicationSettings(successTokenDTO.getEnvironment())).thenReturn(applicationSettings);
@@ -192,6 +196,8 @@ public class ApplicationSettingsApiTest {
         applicationSettings.setFirebaseIconUrl("sid");
         applicationSettings.setFirebaseMessagingUrl("token");
         applicationSettings.setFirebaseServerKey("number");
+        applicationSettings.setFirebaseIosKey("ios");
+        applicationSettings.setFirebaseAndroidKey("android");
         //
         FirebaseDataDTO dataDTO = new FirebaseDataDTO();
         //
@@ -199,6 +205,8 @@ public class ApplicationSettingsApiTest {
         dataDTO.setIconUrl(applicationSettings.getFirebaseIconUrl());
         dataDTO.setMessagingUrl(applicationSettings.getFirebaseMessagingUrl());
         dataDTO.setServerKey(applicationSettings.getFirebaseServerKey());
+        dataDTO.setIosKey(applicationSettings.getFirebaseIosKey());
+        dataDTO.setAndroidKey(applicationSettings.getFirebaseAndroidKey());
         //
         when(authorizationService.validateToken(auth, ApplicationScopeTypes.NOTIFICATION_APPLICATION_SETTINGS)).thenReturn(successTokenDTO);
         //

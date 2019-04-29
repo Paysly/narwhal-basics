@@ -106,6 +106,8 @@ public class ApplicationSettingsApi {
         dataDTO.setIconUrl(settings.getFirebaseIconUrl());
         dataDTO.setMessagingUrl(settings.getFirebaseMessagingUrl());
         dataDTO.setServerKey(settings.getFirebaseServerKey());
+        dataDTO.setIosKey(settings.getFirebaseIosKey());
+        dataDTO.setAndroidKey(settings.getFirebaseAndroidKey());
         //
         return Response.ok(dataDTO).build();
     }

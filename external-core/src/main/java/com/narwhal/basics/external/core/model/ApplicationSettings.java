@@ -1,6 +1,13 @@
 package com.narwhal.basics.external.core.model;
 
-import com.googlecode.objectify.annotation.*;
+import java.util.Date;
+
+import org.apache.commons.lang.StringUtils;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.IgnoreSave;
+import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Unindex;
 import com.googlecode.objectify.condition.IfDefault;
 import com.narwhal.basics.core.rest.model.BaseModel;
 import com.narwhal.basics.core.rest.utils.ApiPreconditions;
@@ -10,9 +17,6 @@ import com.narwhal.basics.external.core.exceptions.TwilioProviderInfoNotConfigur
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +27,6 @@ public class ApplicationSettings implements BaseModel, SendgridSettings, Firebas
 
     @Id
     private String id;
-
     @Unindex
     @IgnoreSave(IfDefault.class)
     private String emailSender;
@@ -36,7 +39,6 @@ public class ApplicationSettings implements BaseModel, SendgridSettings, Firebas
     @Unindex
     @IgnoreSave(IfDefault.class)
     private String sendgridAppUrl;
-
     @Unindex
     @IgnoreSave(IfDefault.class)
     private String twilioFromNumber;
@@ -49,7 +51,6 @@ public class ApplicationSettings implements BaseModel, SendgridSettings, Firebas
     @Unindex
     @IgnoreSave(IfDefault.class)
     private String twilioUrl;
-
     @Unindex
     @IgnoreSave(IfDefault.class)
     private String firebaseServerKey;
@@ -62,7 +63,12 @@ public class ApplicationSettings implements BaseModel, SendgridSettings, Firebas
     @Unindex
     @IgnoreSave(IfDefault.class)
     private String firebaseIconUrl;
-
+    @Unindex
+    @IgnoreSave(IfDefault.class)
+    private String firebaseIosKey;
+    @Unindex
+    @IgnoreSave(IfDefault.class)
+    private String firebaseAndroidKey;
     private Date createdAt;
     @Unindex
     private Date updatedAt;
@@ -118,6 +124,9 @@ public class ApplicationSettings implements BaseModel, SendgridSettings, Firebas
         }
         if (StringUtils.isEmpty(firebaseServerKey)) {
             throw new FirebaseProviderInfoNotConfiguredException("firebaseServerKey");
+        }
+        if (StringUtils.isEmpty(firebaseIosKey) || StringUtils.isEmpty(firebaseAndroidKey)) {
+            throw new FirebaseProviderInfoNotConfiguredException("firebase mobile key (ios or android)");
         }
     }
 }
