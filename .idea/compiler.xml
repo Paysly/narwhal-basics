@@ -17,6 +17,7 @@
         <module name="external-core" />
         <module name="external-firebase" />
         <module name="external-sendgrid" />
+        <module name="external-slack" />
         <module name="external-twilio" />
         <module name="integrations-authorization-client" />
         <module name="integrations-authorization-client (1)" />
@@ -34,6 +35,7 @@
       <module name="external-core" target="1.7" />
       <module name="external-firebase" target="1.7" />
       <module name="external-sendgrid" target="1.7" />
+      <module name="external-slack" target="1.7" />
       <module name="external-twilio" target="1.7" />
       <module name="integrations-authorization-client" target="1.7" />
       <module name="integrations-notifications-client" target="1.7" />
