@@ -1,5 +1,19 @@
 package com.narwhal.basics.external.firebase.endpoint;
 
+import static junit.framework.TestCase.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalURLFetchServiceTestConfig;
@@ -11,19 +25,6 @@ import com.narwhal.basics.external.core.services.ApplicationSettingsCachedServic
 import com.narwhal.basics.external.firebase.dto.FirebaseCloudMessageResponse;
 import com.narwhal.basics.external.firebase.dto.FirebasePayload;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static junit.framework.TestCase.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
 
 
 /**
@@ -51,6 +52,8 @@ public class FirebaseCloudMessagingEndpointIntegrationTest {
         applicationSettings.setFirebaseMessagingUrl("https://fcm.googleapis.com/fcm/send");
         applicationSettings.setFirebaseIconUrl(FIREBASE_ICON_URL);
         applicationSettings.setFirebaseAppUrl(APP_URL);
+        applicationSettings.setFirebaseIosKey("ios");
+        applicationSettings.setFirebaseAndroidKey("android");
         //
         when(cachedService.getCachedApplicationSettings(eq(ApplicationEnvironmentTypes.development))).thenReturn(applicationSettings);
         //
