@@ -10,5 +10,9 @@ public interface FirebaseSettings {
 
     String getFirebaseIconUrl();
 
+    String getFirebaseIosKey();
+
+    String getFirebaseAndroidKey();
+
     void checkFirebaseData();
 }
