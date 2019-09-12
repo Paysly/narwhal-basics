@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" version="4">
+  <component name="FacetManager">
+    <facet type="google-app-engine" name="Google App Engine">
+      <configuration>
+        <sdk-home-path>$MAVEN_REPOSITORY$/com/google/appengine/appengine-java-sdk/1.9.58/appengine-java-sdk/appengine-java-sdk-1.9.58</sdk-home-path>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -20,8 +27,6 @@
     <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-appengine:1.25.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.http-client:google-http-client:1.25.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.http-client:google-http-client-jackson2:1.25.0" level="project" />
-    <orderEntry type="module" module-name="core-rest" />
-    <orderEntry type="module" module-name="core-rest" scope="TEST" production-on-test="" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.16.16" level="project" />
     <orderEntry type="library" name="Maven: com.google.appengine:appengine-api-1.0-sdk:1.9.76" level="project" />
     <orderEntry type="library" name="Maven: com.google.appengine:appengine-endpoints:1.9.76" level="project" />

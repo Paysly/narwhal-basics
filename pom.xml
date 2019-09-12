@@ -4,19 +4,19 @@
 
     <groupId>com.narwhal.basics</groupId>
     <artifactId>narwhal-basics-pom</artifactId>
-    <version>1.4.9</version>
+    <version>1.5.0</version>
     <packaging>pom</packaging>
 
     <name>narwhal-basics</name>
     <url>http://basics.narwhal.com</url>
 
     <properties>
-        <application.basic.version>1.4.9</application.basic.version>
+        <application.basic.version>1.5.0</application.basic.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- GAE properties -->
-        <gae.version>1.9.58</gae.version>
+        <gae.version>1.9.76</gae.version>
         <gae.home>
             ${user.home}/.m2/repository/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
         </gae.home>
@@ -68,7 +68,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <configuration>
                     <formats>
                         <format>html</format>
