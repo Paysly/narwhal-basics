@@ -1,5 +1,12 @@
 package com.narwhal.basics.external.sendgrid.services;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.context.Context;
+import org.apache.velocity.tools.generic.RenderTool;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.narwhal.basics.core.rest.exceptions.api.ApiException;
@@ -20,13 +27,9 @@ import com.narwhal.basics.external.sendgrid.endpoint.SendgridMailEndpoint;
 import com.narwhal.basics.external.sendgrid.exceptions.EmailNotSendException;
 import com.narwhal.basics.external.sendgrid.types.MailContentTypes;
 import com.narwhal.basics.integrations.authorization.client.types.ApplicationEnvironmentTypes;
-import lombok.extern.java.Log;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.context.Context;
-import org.apache.velocity.tools.generic.RenderTool;
+import com.vdurmont.emoji.EmojiParser;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
+import lombok.extern.java.Log;
 
 /**
  * @author Tomas de Priede
@@ -76,6 +79,7 @@ public class SendMailService {
             mailDTO.getContent().add(new MailContent(MailContentTypes.PLAIN, bodyPlain));
             //
             String bodyHtml = renderTool.eval(map, emailMessage.getHtmlTemplate());
+            bodyHtml = EmojiParser.parseToUnicode(bodyHtml);
             mailDTO.getContent().add(new MailContent(MailContentTypes.HTML, bodyHtml));
             //
             sendgridMailAPI.sendMail(environment, mailDTO);
