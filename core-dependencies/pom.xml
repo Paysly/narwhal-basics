@@ -13,6 +13,17 @@
     <artifactId>core-dependencies</artifactId>
     <packaging>pom</packaging>
 
+    <repositories>
+        <repository>
+            <id>maven-public</id>
+            <url>http://nexus.soccyo.com/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>maven-google</id>
+            <url>http://nexus.soccyo.com/repository/maven-google/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
 
         <!-- LomboK for boilerplate code -->
@@ -74,7 +85,7 @@
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client-appengine</artifactId>
-            <version>[1.19,2.0)</version>
+            <version>1.19.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.guava</groupId>

@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Maven: com.narwhal.basics:core-rest:test-jar:tests:1.5.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/narwhal/basics/core-rest/1.5.2/core-rest-1.5.2-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/core-rest/core-rest-1.5.2-test-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/narwhal/basics/core-rest/1.5.2/core-rest-1.5.2-test-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/core-rest/core-rest-1.5.2-test-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/narwhal/basics/core-rest/1.5.2/core-rest-1.5.2-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
